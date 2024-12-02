@@ -1,0 +1,81 @@
+﻿@model IEnumerable<Actor>
+
+@{
+    ViewData["Title"] = "Actors";
+}
+
+<div class="all-actors-page" style="background: linear-gradient(to bottom, #fff7e6, #f9e0b7); min-height: 100vh; padding: 50px 0;">
+    <div class="container py-5">
+        <h1 class="text-center mb-5" style="color: #8b0000; font-family: 'Georgia', serif; font-weight: bold;">🎭 Meet the Stars 🎭</h1>
+        <div class="row g-4">
+            @foreach (var actor in Model)
+            {
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-lg border-0" style="background-color: #ffffff; border-radius: 20px;">
+                        <!-- Full-Format Actor Image -->
+                        <div class="card-img-container" style="position: relative; overflow: hidden; border-radius: 20px 20px 0 0;">
+                            <img src="@actor.ActorImageUrl" alt="@actor.FirstName" style="width: 100%; height: auto; display: block;">
+                        </div>
+                        <!-- Actor Name -->
+                        <div class="card-body text-center">
+                            <h3 style="color: #8b0000; font-family: 'Courier New', Courier, monospace; font-weight: bold;">
+                                @actor.FirstName @actor.Surname
+                            </h3>
+                        </div>
+                        <!-- Details Button -->
+                        <div class="card-footer text-center" style="background-color: #fff7e6;">
+                            <a asp-controller="Actor" asp-action="Details" asp-route-id="@actor.Id"
+                               class="btn" style="background-color: #8b0000; color: white; border-radius: 50px; padding: 10px 25px; font-weight: bold; text-transform: uppercase; transition: background-color 0.3s ease;">
+                                Explore Their Story
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    .all-actors-page {
+        font-family: 'Arial', sans-serif;
+        background: linear-gradient(to bottom, #fff7e6, #f9e0b7); /* Beige gradient */
+        padding: 50px 0;
+    }
+
+    /* Title Styling */
+    h1 {
+        font-size: 2.5rem;
+        color: #8b0000; /* Consistent deep red */
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Card Styling */
+    .card {
+        border-radius: 20px;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+    }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+    /* Card Footer Button Styling */
+    .card-footer a {
+        text-decoration: none;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+        .card-footer a:hover {
+            background-color: #b22222; /* Slightly darker red for hover */
+            transform: scale(1.05);
+        }
+
+    /* Full-Format Image Styling */
+    .card-img-container img {
+        max-width: 100%;
+        height: auto; /* Maintains aspect ratio */
+        display: block;
+    }
+</style>
