@@ -9,49 +9,80 @@
         body {
             margin: 0;
             font-family: 'Arial', sans-serif;
-            color: #8b0000; /* Deep red for text */
-            text-align: center;
-            background: linear-gradient(to bottom, #fff7e6, #ffe4b5); /* Light beige gradient background */
-            height: 100vh;
+            background: url('https://i.pinimg.com/736x/e4/74/16/e47416ca525123a0d7cb5c4a189fcdf3.jpg') no-repeat center center fixed; /* Provided image URL */
+            background-size: cover; /* Ensures the image covers the entire screen */
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            color: white; /* White text for better contrast */
+        }
+
+        /* Navigation Bar */
+        header {
+            background: white;
+            padding: 10px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+            header nav {
+                display: flex;
+                justify-content: center;
+                gap: 15px;
+                font-family: 'Roboto', sans-serif;
+            }
+
+                header nav a {
+                    text-decoration: none;
+                    color: #8b0000;
+                    font-weight: bold;
+                }
+
+                    header nav a:hover {
+                        text-decoration: underline;
+                    }
+
+        /* Centered Content Styling */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start; /* Align items near the top */
+            align-items: center; /* Center horizontally */
+            text-align: center;
+            padding-top: 100px; /* Push content down */
         }
 
         /* Title Styling */
         h1 {
-            font-family: 'Playfair Display', serif; /* Elegant serif font for title */
+            font-family: 'Playfair Display', serif;
             font-size: 3.5rem;
-            color: #8b0000; /* Deep red */
+            color: #8b0000;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
             margin: 0;
         }
 
         /* Subtitle Styling */
         p {
-            font-family: 'Roboto', sans-serif; /* Clean sans-serif font for subtitle */
+            font-family: 'Roboto', sans-serif;
             font-size: 1.5rem;
             margin: 15px 0 0;
-            color: #4b2e83; /* Dark purple for subtitle */
+            color: #4b2e83; /* Light brown color */
             max-width: 800px;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
         }
 
         /* Footer */
         footer {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.9);
-            color: #4b2e83;
+            background: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
+            color: white;
             text-align: center;
             padding: 10px 0;
             font-family: 'Roboto', sans-serif;
         }
 
             footer a {
-                color: #8b0000;
+                color: white;
                 text-decoration: none;
                 font-weight: bold;
             }
@@ -60,11 +91,12 @@
                     text-decoration: underline;
                 }
     </style>
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>MovieVerse</h1>
-    <p>Explore the most famous Movies, Actors, Directors, Filming Countries, and MovieOrShow Quotes</p>
+    <main>
+        <h1>MovieVerse</h1>
+        <p>Explore the most famous Movies, Actors, Directors, Filming Countries, and MovieOrShow Quotes</p>
+    </main>
 </body>
 </html>

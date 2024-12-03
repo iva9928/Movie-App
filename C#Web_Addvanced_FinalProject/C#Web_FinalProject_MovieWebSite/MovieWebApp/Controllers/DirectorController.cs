@@ -4,6 +4,7 @@
     using Microsoft.AspNetCore.Mvc;
     using MovieApp.Data;
     using MovieApp.DataModels;
+    using MovieWebApp.Services.Data.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -13,17 +14,24 @@
     {
         private readonly MovieAppDbContext dbContext;
 
-        public DirectorController(MovieAppDbContext dbContext)
+        private IDirectorService directorService;
+
+        public DirectorController(MovieAppDbContext dbContext, IDirectorService directorService)
         {
             this.dbContext = dbContext;
+
+            this.directorService
+                = directorService;
         }
 
         [HttpGet]
         [Authorize]
         [Route("Director/All")]
-        public IActionResult AllDirectors()
+        public async Task<IActionResult> AllDirectors()
         {
-            var allDirectors = dbContext.Directors.ToList();
+           
+            IEnumerable<Director> allDirectors = await this.directorService.GetAllDirectorsAsync();
+
             return View(allDirectors);
         }
 
@@ -31,19 +39,13 @@
         [Route("Director/Details/{id:guid}")]
         public async Task<IActionResult> Details(string id)
         {
-            if (string.IsNullOrEmpty(id) || !Guid.TryParse(id, out Guid directorId))
+            IEnumerable<Director> directors = await this.directorService.GetAllDirectorDetails(id);
+            if (!directors.Any())
             {
-                return BadRequest("Invalid Director ID.");
+                return NotFound();
             }
-
-            var director = await dbContext.Directors.FindAsync(directorId);
-
-            if (director == null)
-            {
-                return NotFound("Director not found.");
-            }
-
-            return View(director);
+            var actor = directors.First();
+            return View(directors);
         }
     }
 }

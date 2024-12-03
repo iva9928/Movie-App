@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MovieApp.Data;
+using MovieWebApp.Services;
+using MovieWebApp.Services.Data;
+using MovieWebApp.Services.Data.Interfaces;
 
 namespace MovieWebApp
 {
@@ -20,6 +23,20 @@ namespace MovieWebApp
 
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<MovieAppDbContext>();
+
+            builder.Services.AddScoped<IMovieService , MovieService>();
+
+            builder.Services.AddScoped<IActorService, ActorService>();
+
+            builder.Services.AddScoped<IDirectorService, DirectorService>();
+
+            builder.Services.AddScoped<ICountryService, CountryService>();
+
+            builder.Services.AddScoped<IQuoteService, QuoteService>();
+
+
+
+
 
             builder.Services.AddControllersWithViews();
 

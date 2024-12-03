@@ -1,43 +1,41 @@
 ﻿namespace MovieApp.Web.Controllers
 {
-    using Data;
-    using DataModels;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using MovieWebApp.Services.Data.Interfaces;
+    using MovieApp.DataModels;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+
+    [Route("Country")]
     public class CountryController : Controller
     {
-        private readonly MovieAppDbContext dbContext;
+        private readonly ICountryService countryService;
 
-        public CountryController(MovieAppDbContext dbContext)
+        public CountryController(ICountryService countryService)
         {
-            this.dbContext = dbContext;
+            this.countryService = countryService;
         }
 
         [HttpGet]
         [Authorize]
-        [Route("Country/All")]
-        public IActionResult AllCountries()
+        [Route("AllCountries")]
+        public async Task<IActionResult> AllCountries()
         {
-            IEnumerable<Country> allCountries = this.dbContext
-                .Countries
-                .ToList();
-
+            var allCountries = await this.countryService.GetAllCountriesAsync();
             return View(allCountries);
         }
 
         [HttpGet]
-        [Route("Country/Details/{id:guid}")]
+        [Route("Details/{id:guid}")]
         public async Task<IActionResult> Details(string id)
         {
-            if (string.IsNullOrEmpty(id) || !Guid.TryParse(id, out Guid countryId))
+            if (string.IsNullOrWhiteSpace(id))
             {
-                return BadRequest("Invalid ID");
+                return BadRequest("Country ID cannot be null or empty.");
             }
 
-            Country? country = await this.dbContext
-                .Countries
-                .FindAsync(countryId);
-
+            var country = await this.countryService.GetCountryDetailsAsync(id);
             if (country == null)
             {
                 return NotFound();

@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MovieApp.DataModels\MovieApp.DataModels.csproj" />
     <ProjectReference Include="..\MovieApp.Data\MovieApp.Data.csproj" />
+    <ProjectReference Include="..\MovieWebApp.Services.Data\MovieWebApp.Services.Data.csproj" />
   </ItemGroup>
 
 </Project>
