@@ -6,6 +6,7 @@
     using System.Reflection;
     using Microsoft.AspNetCore.Identity;
     using System.Reflection.Emit;
+    using MovieApp.Data.Configuration;
 
     public class MovieAppDbContext : IdentityDbContext
     {
@@ -38,6 +39,15 @@
             builder.Entity<Director>()
              .HasKey(d => d.Id);
 
+            builder.Entity<IdentityRole>(role =>
+            {
+                role.Property(r => r.Name).HasMaxLength(256);
+                role.Property(r => r.NormalizedName).HasMaxLength(256);
+            });
+
+            base.OnModelCreating(builder);
+
+            builder.ApplyConfiguration(new TVShowsConfiguration());
             Assembly assembly = Assembly.GetAssembly(typeof(MovieAppDbContext)) ?? Assembly.GetExecutingAssembly();
 
             builder.ApplyConfigurationsFromAssembly(assembly);
