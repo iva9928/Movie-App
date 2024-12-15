@@ -5,6 +5,7 @@
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using System.Reflection;
     using Microsoft.AspNetCore.Identity;
+    using System.Reflection.Emit;
 
     public class MovieAppDbContext : IdentityDbContext
     {
@@ -20,6 +21,7 @@
         public virtual DbSet<Country> Countries { get; set; } = null!;
         public virtual DbSet<Director> Directors { get; set; } = null!;
         public virtual DbSet<Quote> Quotes { get; set; } = null!;
+        public virtual DbSet<TVShows> TVShows { get; set; } = null!;
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -30,6 +32,12 @@
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Actor>()
+             .HasKey(a => a.Id);
+
+            builder.Entity<Director>()
+             .HasKey(d => d.Id);
+
             Assembly assembly = Assembly.GetAssembly(typeof(MovieAppDbContext)) ?? Assembly.GetExecutingAssembly();
 
             builder.ApplyConfigurationsFromAssembly(assembly);
