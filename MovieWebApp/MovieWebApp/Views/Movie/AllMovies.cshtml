@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Movie>
+
+@{
+    ViewData["Title"] = "Movies";
+}
+
+<div class="full-page" style="background: linear-gradient(to bottom, #f8f4ec, #e4d5ba); min-height: 100vh; padding: 50px 0;">
+    <div class="container py-5">
+        <h1 class="text-center mb-5 display-4" style="color: darkred; font-weight: bold;">🎬 Top 10 Movies 🎥</h1>
+
+        <!-- Admin-only: Add Movie Button -->
+        @if (User.IsInRole("Admin"))
+        {
+            <div class="text-center mb-4">
+                <a asp-controller="Movie" asp-action="AddMovie" class="btn btn-danger" style="font-size: 1.2rem;">
+                    + Add Movie
+                </a>
+            </div>
+        }
+
+        <div class="row g-4">
+            @foreach (var movie in Model)
+            {
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-lg border-0" style="background-color: beige; border-radius: 15px;">
+                        <!-- Movie Image -->
+                        <div class="card-image-container" style="position: relative; overflow: hidden; border-radius: 15px 15px 0 0;">
+                            <img src="@movie.MovieImageUrl" class="card-img-top img-fluid" alt="@movie.Title" style="width: 100%; height: auto; display: block;">
+                        </div>
+                        <!-- Movie Info -->
+                        <div class="card-body text-center">
+                            <h3 style="color: darkred; font-family: 'Georgia', serif; font-weight: bold;">@movie.Title</h3>
+                            <p class="card-text mt-3"><strong>Duration:</strong> @movie.Duration minutes</p>
+                        </div>
+                        <!-- Buttons -->
+                        <div class="card-footer text-center" style="background-color: beige;">
+                            <a asp-controller="Movie" asp-action="Details" asp-route-id="@movie.Id"
+                               class="btn" style="color: darkred; border: 2px solid darkred; padding: 10px 20px; font-size: 1.1rem; font-weight: bold; text-transform: uppercase; transition: background-color 0.3s ease, color 0.3s ease;">
+                                Details
+                            </a>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <form asp-controller="Movie" asp-action="DeleteMovie" method="post" class="d-inline">
+                                    <input type="hidden" name="id" value="@movie.Id" />
+                                    <button type="submit" class="btn btn-danger" style="margin-left: 10px;">
+                                        Delete
+                                    </button>
+                                </form>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
