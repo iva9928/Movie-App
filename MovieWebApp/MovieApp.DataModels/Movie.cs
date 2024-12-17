@@ -1,4 +1,6 @@
-﻿namespace MovieApp.DataModels
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MovieApp.DataModels
 {
     public class Movie
     {
@@ -6,6 +8,7 @@
         {
             this.Id = Guid.NewGuid();
         }
+        [Key]
         public Guid Id { get; set; }
         public string Title { get; set; } = null!;
         //Искам филтрите да бъдат избирани по жанр след това да се визуализира самия филм,
@@ -17,7 +20,7 @@
         public int Duration { get; set; }
         public string Country { get; set; } = null!;
         public string Production { get; set; } = null!;
-        public string MovieImageUrl { get; set; } = null!;
+        public string ImageUrl { get; set; } = null!;
         public string Description { get; set; } = null!;
     }
 }
