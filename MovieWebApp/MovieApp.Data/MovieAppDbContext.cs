@@ -29,7 +29,7 @@
         {
             optionsBuilder.UseSqlServer(
                 "Server=DESKTOP-QQ34EL6\\SQLEXPRESS;Database=MovieApp2024;Trusted_Connection=True;TrustServerCertificate=True;",
-                b => b.MigrationsAssembly("MovieWebApp"));
+                b => b.MigrationsAssembly("MovieApp.Data"));
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -47,7 +47,7 @@
 
             base.OnModelCreating(builder);
 
-            builder.ApplyConfiguration(new TVShowsConfiguration());
+            //builder.ApplyConfiguration(new TVShowsConfiguration());
             Assembly assembly = Assembly.GetAssembly(typeof(MovieAppDbContext)) ?? Assembly.GetExecutingAssembly();
 
             builder.ApplyConfigurationsFromAssembly(assembly);

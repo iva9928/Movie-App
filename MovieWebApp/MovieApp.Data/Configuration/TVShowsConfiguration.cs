@@ -39,6 +39,10 @@ namespace MovieApp.Data.Configuration
               .IsRequired()
               .HasMaxLength(DescriptionMovieMaxLength);
 
+            builder.Property(m => m.TVSeriesImageUrl)
+              .IsRequired()
+              .HasMaxLength(DescriptionMovieMaxLength);
+
             builder.HasData(this.SeedTVSeries());
 
         }

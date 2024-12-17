@@ -9,11 +9,11 @@ using MovieApp.Data;
 
 #nullable disable
 
-namespace MovieWebApp.Migrations
+namespace MovieApp.Data.Migrations
 {
     [DbContext(typeof(MovieAppDbContext))]
-    [Migration("20241130134813_ImagesToQuote")]
-    partial class ImagesToQuote
+    [Migration("20241216191140_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -259,7 +259,7 @@ namespace MovieWebApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("9a6dc7e0-b3d9-4774-853f-b152731a58c2"),
+                            Id = new Guid("c489fb74-b3cd-4d52-9964-8504f0abbc1d"),
                             ActorImageUrl = "https://images.fandango.com/ImageRenderer/300/0/redesign/static/img/default_poster.png/0/images/masterrepository/performer%20images/132947/BradleyCooper-2022_r.jpg",
                             Description = "Bradley Cooper is a highly acclaimed American actor and filmmaker known for his versatility and dedication to his craft. He was born on January 5, 1975, in Philadelphia, Pennsylvania. Over the years, he has established himself as one of the most talented and bankable stars in Hollywood.",
                             FirstName = "Bradley",
@@ -267,7 +267,7 @@ namespace MovieWebApp.Migrations
                         },
                         new
                         {
-                            Id = new Guid("a72d0f69-9511-4dd5-a57e-4ea056eee4de"),
+                            Id = new Guid("75956b44-d4fd-4652-b031-8d6fe84377c1"),
                             ActorImageUrl = "https://i0.gmx.ch/image/610/39010610,pd=1,f=sdata11/colman-domingo.jpg",
                             Description = "Colman Domingo is an acclaimed American actor, playwright, and director known for his versatile performances across theater, film, and television. Born on November 28, 1969, in Philadelphia, Pennsylvania, he has built a career marked by powerful storytelling and emotional depth.",
                             FirstName = "Colman",
@@ -275,7 +275,7 @@ namespace MovieWebApp.Migrations
                         },
                         new
                         {
-                            Id = new Guid("b1046747-0619-42d4-afe5-a4bd6e139656"),
+                            Id = new Guid("323379be-a5c0-4d7d-a512-e6860aa1ae5b"),
                             ActorImageUrl = "https://s.abcnews.com/images/GMA/240222_gma_digital_paul_giamatti_hpMain_4x5_608.jpg",
                             Description = "Paul Giamatti is a celebrated American actor known for his versatility and compelling performances in both leading and supporting roles. Born on June 6, 1967, in New Haven, Connecticut, he has built a distinguished career across film, television, and theater.",
                             FirstName = "Paul",
@@ -283,7 +283,7 @@ namespace MovieWebApp.Migrations
                         },
                         new
                         {
-                            Id = new Guid("ed393b3d-9073-4a9c-8870-8ce7af2ee5bf"),
+                            Id = new Guid("6762617a-1bb1-4bc6-8867-7da56b51ca67"),
                             ActorImageUrl = "https://m.media-amazon.com/images/M/MV5BMTM3OTUwMDYwNl5BMl5BanBnXkFtZTcwNTUyNzc3Nw@@._V1_.jpg",
                             Description = "Scarlett Johansson is an award-winning American actress and singer, widely regarded as one of the most talented and versatile performers of her generation. Born on November 22, 1984, in New York City, she has achieved immense success in both independent films and blockbuster franchises.",
                             FirstName = "Scarlett",
@@ -291,7 +291,7 @@ namespace MovieWebApp.Migrations
                         },
                         new
                         {
-                            Id = new Guid("5ada153b-dc66-4f3b-9c5c-d876e38676a8"),
+                            Id = new Guid("c0825cf4-b31c-414d-9db1-6f7ed5591d25"),
                             ActorImageUrl = "https://i.pinimg.com/736x/b0/86/f1/b086f106f5f95f68df6d86b8fab10b6d.jpg",
                             Description = "Cillian Murphy is an Irish actor renowned for his intense performances and transformative roles across film, television, and theater. Born on May 25, 1976, in Douglas, County Cork, Ireland, Murphy is celebrated for his versatility and ability to portray complex, nuanced characters.",
                             FirstName = "Cillian",
@@ -316,8 +316,8 @@ namespace MovieWebApp.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
@@ -326,35 +326,35 @@ namespace MovieWebApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("75aed207-a5bb-4693-a7a9-6b8745d45891"),
+                            Id = new Guid("d6cdea10-02a3-4249-acb3-c9cf22825b46"),
                             CountryImageUrl = "https://cdn.britannica.com/33/4833-050-F6E415FE/Flag-United-States-of-America.jpg",
                             Description = "The U.S. film industry, centered in Hollywood, is the largest and most influential in the world, known for its high-budget productions and global reach. It produces a diverse range of films, from independent projects to blockbuster franchises like Star Wars and the Marvel Cinematic Universe. As a cultural powerhouse, it shapes global trends in storytelling, technology, and entertainment.",
                             Name = "United States"
                         },
                         new
                         {
-                            Id = new Guid("7c9e2178-892f-429a-804a-ef467327025a"),
-                            CountryImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Flag_of_India.svg/2560px-Flag_of_India.svg.png",
+                            Id = new Guid("92fe1215-85b1-42fb-a36f-0bd976fa6cb1"),
+                            CountryImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Flag_of_the_People%27s_Republic_of_China.svg/800px-Flag_of_the_People%27s_Republic_of_China.svg.png",
                             Description = "The Chinese film industry is one of the largest in the world, known for its blend of traditional storytelling and modern blockbusters. It boasts a massive domestic audience, government support, and global recognition, with hits like The Wandering Earth and directors such as Zhang Yimou. China's industry continues to expand, influencing both local culture and the global market.",
                             Name = "China"
                         },
                         new
                         {
-                            Id = new Guid("6ca65c77-1989-4d18-810d-2988d3955fce"),
-                            CountryImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Flag_of_the_People%27s_Republic_of_China.svg/800px-Flag_of_the_People%27s_Republic_of_China.svg.png",
+                            Id = new Guid("75743bc9-0860-481a-a04f-c57ffd264e10"),
+                            CountryImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Flag_of_India.svg/2560px-Flag_of_India.svg.png",
                             Description = "India's film industry, known as Bollywood and regional cinema hubs like Tollywood and Kollywood, is the largest in the world by volume, producing over 1,500 films annually. Renowned for its vibrant musicals, emotional storytelling, and diverse languages, it caters to a massive domestic audience and a growing global fanbase. Iconic productions like RRR and Dangal highlight its increasing international influence.",
                             Name = "India"
                         },
                         new
                         {
-                            Id = new Guid("ae3dce66-1848-4330-84d0-60bc97374e11"),
+                            Id = new Guid("18f47bf6-94f7-4e46-9987-a4c54af1cd7e"),
                             CountryImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Flag_of_the_United_Kingdom_%281-2%29.svg/1200px-Flag_of_the_United_Kingdom_%281-2%29.svg.png",
                             Description = "The UK film industry is renowned for its rich cinematic heritage and world-class talent, contributing significantly to global cinema. Known for iconic franchises like James Bond and Harry Potter, it blends independent filmmaking with major international co-productions. Supported by institutions like the British Film Institute (BFI), it remains a hub for creativity and innovation in film.",
                             Name = "United Kingdom"
                         },
                         new
                         {
-                            Id = new Guid("96a69ebb-42d8-4aae-b2cb-2fbd86943d67"),
+                            Id = new Guid("bad770bf-2196-4855-bc8e-127ca4e89c1f"),
                             CountryImageUrl = "https://cdn.britannica.com/82/682-050-8AA3D6A6/Flag-France.jpg",
                             Description = "The French film industry, often regarded as the birthplace of cinema, is celebrated for its artistic innovation and rich storytelling tradition. Known for iconic directors like François Truffaut and Jean-Luc Godard, it produces a mix of auteur-driven films and popular comedies. Supported by strong government funding, France remains a global leader in cinematic culture and hosts the prestigious Cannes Film Festival.",
                             Name = "France"
@@ -397,7 +397,7 @@ namespace MovieWebApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("0d627f51-d78f-43c4-aa86-48808ac914ad"),
+                            Id = new Guid("b7b799df-e99f-46ad-a583-e7c55154100e"),
                             Description = "Christopher Nolan is a visionary British-American filmmaker celebrated for his innovative storytelling.",
                             DirectorImageUrl = "https://m.media-amazon.com/images/M/MV5BNjE3NDQyOTYyMV5BMl5BanBnXkFtZTcwODcyODU2Mw@@._V1_FMjpg_UX1000_.jpg",
                             FamousMovies = "Oppenheimer (2023), Tenet (2020), Dunkirk (2017)",
@@ -406,7 +406,7 @@ namespace MovieWebApp.Migrations
                         },
                         new
                         {
-                            Id = new Guid("973bdf71-e52a-462d-9910-11042cdacb47"),
+                            Id = new Guid("2ce0a0c2-4ef6-4a49-ac1c-ac78e17b9cc1"),
                             Description = "Rajkumar Hirani is a renowned Indian filmmaker celebrated for his ability to blend humor and emotion.",
                             DirectorImageUrl = "https://upload.wikimedia.org/wikipedia/commons/4/44/Rajkumar_Hirani_2014.jpg",
                             FamousMovies = "Dunki (2023), PK (2014), Munna Bhai M.B.B.S. (2003)",
@@ -415,7 +415,7 @@ namespace MovieWebApp.Migrations
                         },
                         new
                         {
-                            Id = new Guid("64029c33-3324-4b67-a16e-24d5fce6c2b1"),
+                            Id = new Guid("656d7d64-ea42-47a2-8b8d-d9e5564263fa"),
                             Description = "Frank Darabont is known for his mastery in adapting emotionally resonant films from Stephen King's works.",
                             DirectorImageUrl = "https://m.media-amazon.com/images/M/MV5BNjk0MTkxNzQwOF5BMl5BanBnXkFtZTcwODM5OTMwNA@@._V1_.jpg",
                             FamousMovies = "The Mist (2007), The Shawshank Redemption (1994), The Green Mile (1999)",
@@ -424,7 +424,7 @@ namespace MovieWebApp.Migrations
                         },
                         new
                         {
-                            Id = new Guid("12205920-f8e1-4d42-8df4-404664d4eb0f"),
+                            Id = new Guid("22d192e8-a9d7-4155-a434-50dec0aeb76c"),
                             Description = "Andrei Tarkovsky was a legendary Soviet filmmaker known for his poetic and visually stunning films.",
                             DirectorImageUrl = "https://images.mubicdn.net/images/cast_member/1039/cache-4-1337461025/image-w856.jpg",
                             FamousMovies = "The Sacrifice (1986), Nostalghia (1983), Stalker (1979)",
@@ -433,7 +433,7 @@ namespace MovieWebApp.Migrations
                         },
                         new
                         {
-                            Id = new Guid("beead9d7-2fe9-49c7-8dd9-4e5a898885ad"),
+                            Id = new Guid("8033f6ba-e571-464b-a500-57fb6b47c948"),
                             Description = "Stanley Kubrick was an iconic filmmaker celebrated for his innovative techniques and cinematic mastery.",
                             DirectorImageUrl = "https://www.all-about-photo.com/images/photographer/K/PHOT-stanley-kubrick-30.jpg",
                             FamousMovies = "The Shining (1980), 2001: A Space Odyssey (1968), Eyes Wide Shut (1999)",
@@ -468,10 +468,10 @@ namespace MovieWebApp.Migrations
 
                     b.Property<string>("Genre")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("MovieImageUrl")
+                    b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -495,130 +495,130 @@ namespace MovieWebApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("0f88f154-be44-4bc2-b172-f69ab9d50df5"),
+                            Id = new Guid("27047334-ec5a-4307-ab67-be556846d95e"),
                             Casts = "Marilyn Burns, Allen Danziger, Paul A. Partain, William Vail, Teri McMinn",
                             Country = "United States of America",
                             Description = "A chain-saw wielding his category of cannibals and killer hunts and terrorized five friends visiting their grandfather's house from the country",
                             Duration = 83,
                             Genre = "Horror",
-                            MovieImageUrl = "https://waxworkrecords.com/cdn/shop/files/TCSM-Game_Cover_1080x.jpg?v=1691613262.jpg",
+                            ImageUrl = "https://waxworkrecords.com/cdn/shop/files/TCSM-Game_Cover_1080x.jpg?v=1691613262.jpg",
                             Production = "New Line Cinema, Vortex",
                             ReleaseDate = new DateTime(1974, 8, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "The Texas Chain Saw Massacre"
                         },
                         new
                         {
-                            Id = new Guid("db61b037-df29-4584-85e2-c2e516e02171"),
+                            Id = new Guid("f6b48bd2-dd24-4938-8104-6abe712f8eb4"),
                             Casts = "Ellen Burstyn, Jason Miller, Max von Sydow, Linda Blair, Lee J. Cobb",
                             Country = "United States of America",
                             Description = "As strange events befall the place of Georgetown 12-year-old Regan MacNeil begins to adapt an explicit personality. Her mum ultimately turns into her hope, and becomes torn between superstition and science at a desperate bid to save her daughter: a priest who's currently fighting along with his own faith Father Damien Karras.",
                             Duration = 122,
                             Genre = "Horror",
-                            MovieImageUrl = "https://m.media-amazon.com/images/I/716Gr-3e6rL._AC_UF894,1000_QL80_.jpg.jpg",
+                            ImageUrl = "https://m.media-amazon.com/images/I/716Gr-3e6rL._AC_UF894,1000_QL80_.jpg.jpg",
                             Production = "Hoya Productions, Warner Bros. Pictures",
                             ReleaseDate = new DateTime(1973, 12, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "The Exorcist"
                         },
                         new
                         {
-                            Id = new Guid("d4cb5128-c42c-40a1-968d-bfff0be08c4a"),
+                            Id = new Guid("26736a34-eec4-4084-86f3-7ee27fabcfd1"),
                             Casts = "Jack Nicholson, Shelley Duvall, Danny Lloyd, Scatman Crothers, Barry Nelson",
                             Country = "United Kingdom, United States of America",
                             Description = "Jack Torrance accepts a caretaker job at the Overlook Hotel, where he, together with his wife Wendy and their son Danny, has to live isolated. But they aren't ready for the insanity that lurks within.",
                             Duration = 144,
                             Genre = "Horror",
-                            MovieImageUrl = "https://m.media-amazon.com/images/M/MV5BNmM5ZThhY2ItOGRjOS00NzZiLWEwYTItNDgyMjFkOTgxMmRiXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+                            ImageUrl = "https://m.media-amazon.com/images/M/MV5BNmM5ZThhY2ItOGRjOS00NzZiLWEwYTItNDgyMjFkOTgxMmRiXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
                             Production = "Hawk Films, Peregrine, Warner Bros. Pictures, Producers Circle",
                             ReleaseDate = new DateTime(1980, 5, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "The Shining"
                         },
                         new
                         {
-                            Id = new Guid("f1e5d8c1-cd34-43b2-9b7b-28c2a35d8fe4"),
+                            Id = new Guid("42a018b9-a5e5-4fd8-ba5f-718d47ac24b5"),
                             Casts = "Patrick Wilson, Vera Farmiga, Lili Taylor, Ron Livingston, Mackenzie Foy",
                             Country = "United States of America",
                             Description = "Paranormal investigators Ed and Lorraine Warren work to help a family terrorized by way of a presence in their own farm house. The Warrens are trapped in the terrifying case of his or her lifetimes.",
                             Duration = 112,
                             Genre = "Horror",
-                            MovieImageUrl = "https://m.media-amazon.com/images/I/5147F62RsML._AC_UF1000,1000_QL80_.jpg",
+                            ImageUrl = "https://m.media-amazon.com/images/I/5147F62RsML._AC_UF1000,1000_QL80_.jpg",
                             Production = "New Line Cinema, The Safran Company, Evergreen Media Group",
                             ReleaseDate = new DateTime(2013, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "The Conjuring"
                         },
                         new
                         {
-                            Id = new Guid("bead37c7-46bf-44e6-b759-2bba104fb29a"),
+                            Id = new Guid("824e58f9-5041-4425-915d-dc07d9a71a0e"),
                             Casts = "Naomi Watts, Martin Henderson, David Dorfman, Brian Cox, Jane Alexander",
                             Country = "Japan, United States of America",
                             Description = "It seemed leading to a cellular mobile cell phone call foretelling the viewer's death in exactly seven days. Like a newspaper reporter, Rachel Keller was clearly skeptical of this story, until four teenagers all met with mysterious deaths exactly 1 week. Allowing her investigative curiosity to get the better of her, Rachel tracks down the video... and watches it. She has just seven days to unravel the mystery of the Ring.",
                             Duration = 115,
                             Genre = "Horror",
-                            MovieImageUrl = "https://m.media-amazon.com/images/M/MV5BMTY2ODc2NTQ2OF5BMl5BanBnXkFtZTYwNzA4OTU3._V1_.jpg",
+                            ImageUrl = "https://m.media-amazon.com/images/M/MV5BMTY2ODc2NTQ2OF5BMl5BanBnXkFtZTYwNzA4OTU3._V1_.jpg",
                             Production = "BenderSpink, Parkes+MacDonald Image Nation, DreamWorks",
                             ReleaseDate = new DateTime(2002, 10, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "The Ring"
                         },
                         new
                         {
-                            Id = new Guid("6300622d-9ddb-4e54-a6b5-1d24963fb2be"),
+                            Id = new Guid("59e70ef1-8463-4a25-b712-09e161932063"),
                             Casts = "Beatrice Rubica, Lili Bordán, Jared Morgan, Lynnette Gaza, David Horovitch",
                             Country = "United States of America",
                             Description = "The Vatican sends a priest with a past and a novitiate on the brink of her final cries to explore Every time a nun in a abbey at Romania takes her own life. They uncover the order secret. Risking not only their lives but their faith and their very souls, they face a malevolent force at the kind of the same demonic nun that terrorized audiences at\"The Conjuring 2\" as the abbey gets to be a dreadful battle ground between the alive and the damned.",
                             Duration = 96,
                             Genre = "Horror",
-                            MovieImageUrl = "https://m.media-amazon.com/images/I/61QaDRRcTrL._AC_UF894,1000_QL80_.jpg.jpg",
+                            ImageUrl = "https://m.media-amazon.com/images/I/61QaDRRcTrL._AC_UF894,1000_QL80_.jpg.jpg",
                             Production = "New Line Cinema, Atomic Monster, The Safran Company",
                             ReleaseDate = new DateTime(2018, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "The Nun"
                         },
                         new
                         {
-                            Id = new Guid("9a84ebb5-1180-4947-abc6-5c1aab0854e2"),
+                            Id = new Guid("c8ddf6c9-dc5b-4227-bdbd-36018a3c7bb8"),
                             Casts = "Ethan Hawke, Juliet Rylance, Vincent D'Onofrio, James Ransone, Fred Dalton Thompson",
                             Country = "United States of America",
                             Description = "Footage helps a truecrime novelist realize a household has been killed inside his new residence, though his discoveries put his family.",
                             Duration = 110,
                             Genre = "Horror",
-                            MovieImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaS6dDLX1WEgUs2vVn9JhE-MDaXF3BDMFdIw&s.jpg",
+                            ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaS6dDLX1WEgUs2vVn9JhE-MDaXF3BDMFdIw&s.jpg",
                             Production = "Automatik Entertainment, Blumhouse Productions, Alliance Films, IM Global, Possessed Pictures",
                             ReleaseDate = new DateTime(2012, 3, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Sinister"
                         },
                         new
                         {
-                            Id = new Guid("0f44cb17-24ee-47f7-a821-237e098377cb"),
+                            Id = new Guid("eeacf9d0-b8f6-4122-8a76-0e6df31e7e68"),
                             Casts = "Maika Monroe, Keir Gilchrist, Daniel Zovatto, Olivia Luccardi, Lili Sepe",
                             Country = "United States of America",
                             Description = "To get 19-year-old Jay, autumn should be all about boys school and weekends out at the lake. But a seemingly innocent encounter gives her inescapable sense that some one , or something, is after her and turns sour. Up against this weight, Jay and her friends must find a means to flee.",
                             Duration = 101,
                             Genre = "Horror",
-                            MovieImageUrl = "https://m.media-amazon.com/images/M/MV5BNGZiYWRiYjAtODU0NS00YzAzLTk2MzQtZGVlMzVjM2M3MGQ3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg.jpg",
+                            ImageUrl = "https://m.media-amazon.com/images/M/MV5BNGZiYWRiYjAtODU0NS00YzAzLTk2MzQtZGVlMzVjM2M3MGQ3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg.jpg",
                             Production = "Two Flints, Northern Lights Films, Animal Kingdom",
                             ReleaseDate = new DateTime(2014, 11, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "It Follows"
                         },
                         new
                         {
-                            Id = new Guid("294d166a-f062-406b-90cf-4034b1505ab4"),
+                            Id = new Guid("42dea643-bcfe-46ee-958a-1969fc5879bc"),
                             Casts = "Essie Davis, Noah Wiseman, Hayley McElhinney, Daniel Henshall, Barbara West",
                             Country = "Canada, Australia",
                             Description = "A single mommy, harassed with her husband's brutal death , struggles with her son's anxiety about a monster lurking in your house, but soon discovers a menacing presence all.",
                             Duration = 94,
                             Genre = "Horror",
-                            MovieImageUrl = "https://silver.afi.com/CDN/Image/Entity/FilmPosterGraphic/f-0100004762?width=48&height=48.jpg",
+                            ImageUrl = "https://silver.afi.com/CDN/Image/Entity/FilmPosterGraphic/f-0100004762?width=48&height=48.jpg",
                             Production = "Screen Australia, Smoking Gun Productions, Causeway Films, South Australian Film Corporation, Entertainment One",
                             ReleaseDate = new DateTime(2014, 5, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "The Babadook"
                         },
                         new
                         {
-                            Id = new Guid("3621d78a-7c39-4ddd-8430-849a2874b819"),
+                            Id = new Guid("bb3303c7-4a1c-4c00-b7da-4fe3066e5501"),
                             Casts = "Nicole Kidman, Christopher Eccleston, Alakina Mann, James Bentley, Eric Sykes",
                             Country = "Spain, United States of America, France, Italy",
                             Description = "Grace is really actually a woman who resides in a older house kept dark because her two children have a rare sensitivity. When your household begins to suspect your house is haunted, Grace fights to protect her kids at any cost at the face of strange events and disturbing fantasies.",
                             Duration = 101,
                             Genre = "Horror",
-                            MovieImageUrl = "https://m.media-amazon.com/images/I/61cVO6WvabL._AC_UF894,1000_QL80_.jpg",
+                            ImageUrl = "https://m.media-amazon.com/images/I/61cVO6WvabL._AC_UF894,1000_QL80_.jpg",
                             Production = " Cruise/Wagner Productions, Canal+, Sogecine, Las Producciones del Escorpion, Lucky Red, Dimension Films, Miramax",
                             ReleaseDate = new DateTime(2001, 8, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "The Others"
@@ -657,7 +657,7 @@ namespace MovieWebApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("97d962d3-8e40-4b92-8e7e-b334e683e0c8"),
+                            Id = new Guid("f41e82c7-2004-4d3f-b309-b06090bbea93"),
                             CharacterImageUrl = "https://i.pinimg.com/736x/1a/2b/b5/1a2bb5bcb59578199ee35f7f03c97876.jpg",
                             CharacterName = "Michael Scofield",
                             Description = "'Sometimes, the only way to truly escape the past is to keep moving forward.'",
@@ -665,7 +665,7 @@ namespace MovieWebApp.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d5aaab26-ef95-4712-9d2c-c6ea2132ab25"),
+                            Id = new Guid("1312fdd6-8744-400e-adb1-5cd219cfa27d"),
                             CharacterImageUrl = "https://upload.wikimedia.org/wikipedia/en/5/50/Tyrion_Lannister-Peter_Dinklage.jpg",
                             CharacterName = "Tyrion Lannister",
                             Description = "“Never forget what you are. The rest of the world will not. Wear it like armor, and it can never be used to hurt you.”",
@@ -673,7 +673,7 @@ namespace MovieWebApp.Migrations
                         },
                         new
                         {
-                            Id = new Guid("e0cd61d6-9fc9-415c-9dd0-291f6347af4b"),
+                            Id = new Guid("3cf1db36-287e-40ab-8488-8864a23ad848"),
                             CharacterImageUrl = "https://i.pinimg.com/originals/a9/74/12/a97412747c6d13646367d5e5912cee4c.jpg",
                             CharacterName = "Fernando Sucre",
                             Description = "“When you love someone, you’ll do anything for them. Even if it means breaking every rule in the book.”",
@@ -681,7 +681,7 @@ namespace MovieWebApp.Migrations
                         },
                         new
                         {
-                            Id = new Guid("772ff84f-a239-4d20-9b85-7a86ec143447"),
+                            Id = new Guid("ac9ddaf4-a0ae-4a77-b723-65cf4f7000f1"),
                             CharacterImageUrl = "https://upload.wikimedia.org/wikipedia/en/9/9b/Yoda_Empire_Strikes_Back.png",
                             CharacterName = "Yoda",
                             Description = "“Do, or do not. There is no try.”",
@@ -689,11 +689,130 @@ namespace MovieWebApp.Migrations
                         },
                         new
                         {
-                            Id = new Guid("666314cd-3d4e-4592-b56e-e8d10170d025"),
+                            Id = new Guid("2a29f383-f583-45dc-9faf-763de21ee9b6"),
                             CharacterImageUrl = "https://upload.wikimedia.org/wikipedia/en/9/94/Forest_Gump_Character.jpg",
                             CharacterName = "Forest Gump",
                             Description = "“Life is like a box of chocolates. You never know what you’re gonna get.”",
                             MovieOrShow = "Forest Gump"
+                        });
+                });
+
+            modelBuilder.Entity("MovieApp.DataModels.TVShows", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Casts")
+                        .IsRequired()
+                        .HasMaxLength(350)
+                        .HasColumnType("nvarchar(350)");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(700)
+                        .HasColumnType("nvarchar(700)");
+
+                    b.Property<int>("Duration")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Genre")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Production")
+                        .IsRequired()
+                        .HasMaxLength(210)
+                        .HasColumnType("nvarchar(210)");
+
+                    b.Property<DateTime>("ReleaseDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("TVSeriesImageUrl")
+                        .IsRequired()
+                        .HasMaxLength(700)
+                        .HasColumnType("nvarchar(700)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(70)
+                        .HasColumnType("nvarchar(70)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TVShows");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("d68cb5f9-cb03-4025-9ed1-6a4a6589b949"),
+                            Casts = "Wentworth Miller, Dominic Purcell, Sarah Wayne Callies, Paul Adelstein, Rockmond Dunbar",
+                            Country = "United States of America",
+                            Description = "Due to a political warfare, an innocent man has been sent to death row and his only hope is his own brother, who makes it his obligation to deliberately get himself shipped to the identical prison as a way to break both of them out, from the inside out.",
+                            Duration = 45,
+                            Genre = "Action & Adventure, Crime, Drama",
+                            Production = "Prison Break Productions, Adelstein-Parouse Productions, Original Television, 20th Century Fox Television",
+                            ReleaseDate = new DateTime(2005, 8, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TVSeriesImageUrl = "https://f.woowoowoowoo.net/resize/250x400/90/35/9035e9fd6129b4d5bbecd6a8351269cc/9035e9fd6129b4d5bbecd6a8351269cc.jpg",
+                            Title = "Prison Break"
+                        },
+                        new
+                        {
+                            Id = new Guid("fc5812cf-9483-4460-8285-37198ff10d6c"),
+                            Casts = "Bryan Cranston, Anna Gunn, Aaron Paul, Dean Norris, Betsy Brandt",
+                            Country = " United States of America",
+                            Description = "When a New Mexico chemistry educator, Walter White, has been diagnosed with Stage III cancer and given a prognosis of two years ago to live. He's filled to secure his family's financial future at any cost since he enters the dangerous environment of crime and drugs.",
+                            Duration = 45,
+                            Genre = "Drama",
+                            Production = "Sony Pictures Television, High Bridge Entertainment, Gran Via Productions",
+                            ReleaseDate = new DateTime(2008, 1, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TVSeriesImageUrl = "https://f.woowoowoowoo.net/resize/250x400/7a/78/7a78d2a44e33d64d6c35e1a2c1e2cdc9/7a78d2a44e33d64d6c35e1a2c1e2cdc9.jpg",
+                            Title = "Breaking Bad"
+                        },
+                        new
+                        {
+                            Id = new Guid("85efab6c-b84c-4344-b017-1264c8e6ad0e"),
+                            Casts = "Cillian Murphy, Paul Anderson, Helen McCrory, Sophie Rundle, Joe Cole",
+                            Country = "United Kingdom",
+                            Description = "A gangster family epic set in England, 1919 Birmingham and predicated on their boss Tommy Shelby, who means to maneuver on earth, along with a gang that sew razor blades from the peaks of their caps.",
+                            Duration = 60,
+                            Genre = "Drama, Crime",
+                            Production = "Tiger Aspect Productions, BBC Studios, Caryn Mandabach Productions, Screen Yorkshire",
+                            ReleaseDate = new DateTime(2013, 9, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TVSeriesImageUrl = "https://f.woowoowoowoo.net/resize/250x400/ea/b4/eab48fa4c71804c00008616715dd3777/eab48fa4c71804c00008616715dd3777.jpg",
+                            Title = "Peaky Blinders"
+                        },
+                        new
+                        {
+                            Id = new Guid("2936e599-659c-483a-a102-60595cd37f2c"),
+                            Casts = "Paul Wesley, Ian Somerhalder, Nina Dobrev, Kat Graham, Candice King",
+                            Country = "United States of America",
+                            Description = "The story of two brothers obsessed with the same girl, that bears a striking resemblance to the beautiful but ruthless vampire they knew and adored from 1864.",
+                            Duration = 45,
+                            Genre = "Drama, Fantasy, Horror, Romance",
+                            Production = "Warner Bros. Television, Alloy Entertainment, Outerbanks Entertainment, Bonanza Productions, CBS Television Studios",
+                            ReleaseDate = new DateTime(2009, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TVSeriesImageUrl = "https://f.woowoowoowoo.net/resize/250x400/9a/2e/9a2e3494b96d12dcaded262e7a5ef061/9a2e3494b96d12dcaded262e7a5ef061.jpg",
+                            Title = "The Vampire Diaries"
+                        },
+                        new
+                        {
+                            Id = new Guid("1b85a3c8-96d1-4f15-a2d8-11b441196fbc"),
+                            Casts = "Blake Lively, Leighton Meester, Penn Badgley, Chace Crawford, Ed Westwick",
+                            Country = "United States of America",
+                            Description = "A private group of privileged teens out of the prep school on Manhattan's Upper East Side whose lives revolve round the allknowing albeit ultra-secretive Gossip Girl's site.",
+                            Duration = 45,
+                            Genre = "Comedy",
+                            Production = " Warner Bros. Television, Alloy Entertainment, Fake Empire Productions, CBS Television Studios",
+                            ReleaseDate = new DateTime(2008, 1, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TVSeriesImageUrl = "https://f.woowoowoowoo.net/resize/250x400/3c/f4/3cf4de4ae0c57a86347943b8f75ef0e5/3cf4de4ae0c57a86347943b8f75ef0e5.jpg",
+                            Title = "Gossip Girl"
                         });
                 });
 
