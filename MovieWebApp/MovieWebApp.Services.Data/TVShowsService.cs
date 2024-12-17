@@ -1,16 +1,9 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using MovieApp.Data;
 using MovieApp.DataModels;
 using MovieWebApp.Services.Data.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static MovieWebApp.Common.EntityValidationConstants;
 
-namespace MovieWebApp.Services.Data
+namespace MovieWebApp.Services
 {
     public class TVShowsService : ITVShowsService
     {
@@ -20,36 +13,49 @@ namespace MovieWebApp.Services.Data
         {
             this.dbContext = dbContext;
         }
-        public async Task<IEnumerable<TVShows>> GetAllTVShowsAsync()
+
+        // Add TV show
+        public async Task AddTVShowAsync(TVShows tvShow)
         {
-            return await dbContext.TVShows.ToListAsync();
-
-        }
-
-        public async Task<IEnumerable<TVShows>> GetAllTVShowsDetails(string id)
-        {
-            return await dbContext.TVShows.Where(s => s.Id.ToString() == id).ToListAsync();
-
-        }
-
-        public async Task AddTVShowsAsync(TVShows TVshows)
-        {
-            TVshows.Id = Guid.NewGuid(); // Assign a new GUID
-            dbContext.TVShows.Add(TVshows);
+            tvShow.Id = Guid.NewGuid(); // Assign a new GUID
+            dbContext.TVShows.Add(tvShow);
             await dbContext.SaveChangesAsync();
         }
 
-        public async Task<bool> DeleteTVShowsAsync(string id)
+        // Delete TV show
+        public async Task<bool> DeleteTVShowAsync(string id)
         {
-            var TVshows = await dbContext.TVShows.FindAsync(id);
-            if (TVshows == null)
+            if (!Guid.TryParse(id, out Guid showId))
+            {
+                throw new ArgumentException("The provided ID is not a valid GUID.", nameof(id));
+            }
+
+            var tvShow = await dbContext.TVShows.FindAsync(showId);
+            if (tvShow == null)
             {
                 return false;
             }
 
-            dbContext.TVShows.Remove(TVshows);
+            dbContext.TVShows.Remove(tvShow);
             await dbContext.SaveChangesAsync();
             return true;
+        }
+
+        // Get all TV shows
+        public async Task<IEnumerable<TVShows>> GetAllTVShowsAsync()
+        {
+            return await dbContext.TVShows.ToListAsync();
+        }
+
+        // Get TV show details
+        public async Task<TVShows?> GetTVShowDetailsAsync(string id)
+        {
+            if (!Guid.TryParse(id, out Guid showId))
+            {
+                throw new ArgumentException("The provided ID is not a valid GUID.", nameof(id));
+            }
+
+            return await dbContext.TVShows.FindAsync(showId);
         }
     }
 }

@@ -6,8 +6,8 @@
     using MovieApp.DataModels;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using MovieWebApp.Controllers;
 
-    //[Route("Country")]
     public class CountryController : Controller
     {
         private readonly ICountryService countryService;

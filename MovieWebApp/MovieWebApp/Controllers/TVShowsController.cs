@@ -1,7 +1,5 @@
-﻿
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MovieApp.Data;
 using MovieApp.DataModels;
 using MovieWebApp.Services.Data.Interfaces;
 
@@ -9,59 +7,52 @@ namespace MovieWebApp.Controllers
 {
     public class TVShowsController : Controller
     {
-        private readonly MovieAppDbContext dbContext;
+        private readonly ITVShowsService tvShowsService;
 
-        private ITVShowsService TVshowsService;
-
-        public TVShowsController(MovieAppDbContext dbContext, ITVShowsService TVshowsService)
+        public TVShowsController(ITVShowsService tvShowsService)
         {
-            this.dbContext = dbContext;
-
-            this.TVshowsService
-                = TVshowsService;
+            this.tvShowsService = tvShowsService;
         }
 
+        // Get all TV shows
         [HttpGet]
-        //[Authorize]
-        public async Task<IActionResult> AllTvShows()
+        public async Task<IActionResult> AllTVShows()
         {
-            IEnumerable<TVShows> allTVShows = await this.TVshowsService.GetAllTVShowsAsync();
+            var allTVShows = await this.tvShowsService.GetAllTVShowsAsync();
             return View(allTVShows);
         }
 
+        // Get TV show details
         [HttpGet]
         public async Task<IActionResult> Details(string id)
         {
-            IEnumerable<TVShows> TVshows = await this.TVshowsService.GetAllTVShowsDetails(id);
-            if (!TVshows.Any())
+            try
             {
-                return NotFound();
-            }
-            var TVshow = TVshows.First();
-            return View(TVshow);
-        }
-        [HttpPost]
-        //[Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteTVShow(string id)
-        {
-            bool isDeleted = await this.TVshowsService.DeleteTVShowsAsync(id);
+                var tvShow = await this.tvShowsService.GetTVShowDetailsAsync(id);
+                if (tvShow == null)
+                {
+                    return NotFound();
+                }
 
-            if (!isDeleted)
+                return View(tvShow);
+            }
+            catch (ArgumentException ex)
             {
-                return NotFound();
+                return BadRequest(ex.Message);
             }
-
-            return RedirectToAction(nameof(AllTvShows));
         }
+
+        // Add TV show (GET)
         [HttpGet]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult AddTVShow()
         {
             return View();
         }
 
+        // Add TV show (POST)
         [HttpPost]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddTVShow(TVShows tvShow)
         {
             if (!ModelState.IsValid)
@@ -69,9 +60,30 @@ namespace MovieWebApp.Controllers
                 return View(tvShow);
             }
 
-            await this.TVshowsService.AddTVShowsAsync(tvShow);
-            return RedirectToAction(nameof(AllTvShows));
+            await this.tvShowsService.AddTVShowAsync(tvShow);
+            return RedirectToAction(nameof(AllTVShows));
         }
 
+        // Delete TV show
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteTVShow(string id)
+        {
+            try
+            {
+                bool isDeleted = await this.tvShowsService.DeleteTVShowAsync(id);
+
+                if (!isDeleted)
+                {
+                    return NotFound();
+                }
+
+                return RedirectToAction(nameof(AllTVShows));
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

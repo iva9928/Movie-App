@@ -4,12 +4,12 @@
     using Microsoft.AspNetCore.Mvc;
     using MovieApp.Data;
     using MovieApp.DataModels;
+    using MovieWebApp.Controllers;
     using MovieWebApp.Services.Data.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-
     public class DirectorController : Controller
     {
         private readonly MovieAppDbContext dbContext;

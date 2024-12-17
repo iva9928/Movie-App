@@ -5,10 +5,8 @@ namespace MovieWebApp.Controllers
     using Microsoft.AspNetCore.Mvc;
     using MovieApp.Data;
     using MovieApp.DataModels;
-
     public class QuoteController : Controller
     {
-
         private readonly MovieAppDbContext dbContext;
         public QuoteController(MovieAppDbContext dbContext)
         {

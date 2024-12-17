@@ -6,7 +6,6 @@ namespace MovieWebApp.Controllers
     using MovieApp.Data;
     using MovieApp.DataModels;
     using MovieWebApp.Services.Data.Interfaces;
-
     public class ActorController : Controller
     {
         private readonly MovieAppDbContext dbContext;

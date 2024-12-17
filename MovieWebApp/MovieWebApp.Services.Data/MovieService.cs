@@ -14,16 +14,7 @@ namespace MovieWebApp.Services
             this.dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<Movie>> GetAllMoviesAsync()
-        {
-            return await dbContext.Movies.ToListAsync();
-        }
-
-        public async Task<IEnumerable<Movie>> GetAllMoviesDetails(string id)
-        {
-            return await dbContext.Movies.Where(m => m.Id.ToString() == id).ToListAsync();
-        }
-
+        // Add Movie
         public async Task AddMovieAsync(Movie movie)
         {
             movie.Id = Guid.NewGuid(); // Assign a new GUID
@@ -31,9 +22,15 @@ namespace MovieWebApp.Services
             await dbContext.SaveChangesAsync();
         }
 
+        // Delete Movie
         public async Task<bool> DeleteMovieAsync(string id)
         {
-            var movie = await dbContext.Movies.FindAsync(id);
+            if (!Guid.TryParse(id, out Guid movieId))
+            {
+                throw new ArgumentException("The provided ID is not a valid GUID.", nameof(id));
+            }
+
+            var movie = await dbContext.Movies.FindAsync(movieId);
             if (movie == null)
             {
                 return false;
@@ -43,6 +40,42 @@ namespace MovieWebApp.Services
             await dbContext.SaveChangesAsync();
             return true;
         }
-    }
 
+        //public Task<IEnumerable<string>> GetAllDurationAsync()
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public async Task<IEnumerable<string>> GetAllGenresAsync()
+        //{
+        //    IEnumerable<string> allGenres = await this.movieRepository
+        //        .GetAllAttached()
+        //        .Select(m => m.Genre)
+        //        .Distinct()
+        //        .ToArrayAsync();
+
+        //    return allGenres;
+        //}
+
+        // Get all Movies
+        public async Task<IEnumerable<Movie>> GetAllMoviesAsync()
+        {
+            IEnumerable<Movie> allMovies = await this.dbContext
+                .Movies
+                .ToListAsync();
+            return allMovies;
+        }
+
+        // Get Movie details by ID
+        public async Task<Movie?> GetMovieDetailsAsync(string id)
+        {
+            if (!Guid.TryParse(id, out Guid movieId))
+            {
+                throw new ArgumentException("The provided ID is not a valid GUID.", nameof(id));
+            }
+
+            Movie? movie = await this.dbContext.Movies.FindAsync(movieId);
+            return movie;
+        }
+    }
 }

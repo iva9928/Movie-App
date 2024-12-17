@@ -10,8 +10,9 @@ namespace MovieWebApp.Services.Data.Interfaces
     public interface ITVShowsService
     {
         Task<IEnumerable<TVShows>> GetAllTVShowsAsync();
-        Task<IEnumerable<TVShows>> GetAllTVShowsDetails(string id);
-        Task AddTVShowsAsync(TVShows TVshows);
-        Task<bool> DeleteTVShowsAsync(string id);
+        Task<TVShows?> GetTVShowDetailsAsync(string id);
+        Task AddTVShowAsync(TVShows tvShow);
+        Task<bool> DeleteTVShowAsync(string id);
+     
     }
 }
