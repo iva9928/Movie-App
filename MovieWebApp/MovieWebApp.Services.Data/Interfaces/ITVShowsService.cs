@@ -1,18 +1,14 @@
 ﻿using MovieApp.DataModels;
-using System;
+using MovieWebApp.Web.ViewModels.TVShows;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace MovieWebApp.Services.Data.Interfaces
+public interface ITVShowsService
 {
-    public interface ITVShowsService
-    {
-        Task<IEnumerable<TVShows>> GetAllTVShowsAsync();
-        Task<TVShows?> GetTVShowDetailsAsync(string id);
-        Task AddTVShowAsync(TVShows tvShow);
-        Task<bool> DeleteTVShowAsync(string id);
-     
-    }
+    Task<IEnumerable<TVShows>> GetFilteredTVShowsAsync(string searchQuery, string genreFilter, string countryFilter);
+    Task<TVShows?> GetTVShowDetailsAsync(string id);
+    Task AddTVShowAsync(TVShows tvShow);
+    Task<bool> DeleteTVShowAsync(string id);
+    Task<TVShows?> GetEditModelAsync(string id);
+    Task<bool> EditTVShowAsync(EditTVShowViewModel model);
 }

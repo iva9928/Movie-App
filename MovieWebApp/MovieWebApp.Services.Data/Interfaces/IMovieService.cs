@@ -1,16 +1,21 @@
-﻿using MovieApp.DataModels;
+﻿using MovieWebApp.Web.ViewModels.Movie;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MovieWebApp.Services.Data.Interfaces
 {
     public interface IMovieService
     {
-        Task<IEnumerable<Movie>> GetAllMoviesAsync();
-        Task<Movie?> GetMovieDetailsAsync(string id);
-        Task AddMovieAsync(Movie movie);
+        Task<IEnumerable<AllMoviesViewModel>> GetAllMoviesAsync();
+        Task<IEnumerable<AllMoviesViewModel>> GetFilteredMoviesAsync(string searchQuery, string genreFilter);
+        Task<List<string>> GetGenresAsync();
+        Task<MovieDetailsViewModel?> GetMovieDetailsAsync(string id);
+        Task AddMovieAsync(AddMovieViewModel model);
         Task<bool> DeleteMovieAsync(string id);
-        //Task<IEnumerable<string>> GetAllDurationAsync();
+        Task<EditMovieViewModel?> GetEditModelAsync(string id);
+        Task<bool> EditMovieAsync(EditMovieViewModel model);
 
-        //Task<int> GetMoviesCountByFilterAsync(AllMoviesSearchanFilterViewModel inputModel);
+        Task<IEnumerable<AllMoviesViewModel>> GetAllMoviesAsync(string searchQuery, string genreFilter);
 
     }
 }
