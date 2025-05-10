@@ -1,0 +1,116 @@
+﻿@model MovieWebApp.Web.ViewModels.Movie.EditMovieViewModel
+
+@{
+    ViewData["Title"] = "Edit Movie";
+}
+
+<div class="container py-5">
+    <div class="text-center mb-4">
+        <h1 style="color: #8b0000; font-weight: bold;">🎬 Edit Movie - @Model.Title 🎬</h1>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg p-4">
+                <div class="card-body">
+                    <form asp-controller="Movie" asp-action="Edit" method="post">
+                        <input type="hidden" asp-for="Id" />
+
+                        <!-- Title -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold" for="Title">Title</label>
+                            <input type="text" asp-for="Title" class="form-control" required />
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+
+                        <!-- Genre -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold" for="Genre">Genre</label>
+                            <input type="text" asp-for="Genre" class="form-control" required />
+                            <span asp-validation-for="Genre" class="text-danger"></span>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold" for="Description">Description</label>
+                            <textarea asp-for="Description" class="form-control" rows="4" required></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <!-- Duration -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold" for="Duration">Duration (minutes)</label>
+                            <input type="number" asp-for="Duration" class="form-control" required />
+                            <span asp-validation-for="Duration" class="text-danger"></span>
+                        </div>
+
+                        <!-- Release Date -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold" for="ReleaseDate">Release Date</label>
+                            <input type="date" asp-for="ReleaseDate" class="form-control" required />
+                            <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+                        </div>
+
+                        <!-- Casts -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold" for="Casts">Casts</label>
+                            <input type="text" asp-for="Casts" class="form-control" required />
+                            <span asp-validation-for="Casts" class="text-danger"></span>
+                        </div>
+
+                        <!-- Country -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold" for="Country">Country</label>
+                            <input type="text" asp-for="Country" class="form-control" required />
+                            <span asp-validation-for="Country" class="text-danger"></span>
+                        </div>
+
+                        <!-- Production -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold" for="Production">Production</label>
+                            <input type="text" asp-for="Production" class="form-control" required />
+                            <span asp-validation-for="Production" class="text-danger"></span>
+                        </div>
+
+                        <!-- Image URL -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold" for="ImageUrl">Image URL</label>
+                            <input type="text" asp-for="ImageUrl" class="form-control" required />
+                            <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="text-center mt-4">
+                            <a asp-controller="Movie" asp-action="AllMovies" class="btn btn-warning btn-lg">
+                                <i class="fas fa-arrow-left"></i> Back
+                            </a>
+
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="fas fa-save"></i> Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Validation Scripts -->
+<style>
+    .btn-warning {
+        background-color: #FFC107;
+        border: none;
+        font-weight: bold;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        border: none;
+        font-weight: bold;
+    }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+</style>

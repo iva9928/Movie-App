@@ -1,0 +1,80 @@
+﻿@model MovieWebApp.Web.ViewModels.TVShows.AddTVShowViewModel
+
+@{
+    ViewData["Title"] = "Add a New TV Show";
+}
+
+<div class="container py-5">
+    <div class="text-center mb-4">
+        <h1 class="display-4" style="color: darkred; font-weight: bold;">
+            📺 Add a New TV Show 🎬
+        </h1>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form asp-controller="TVShows" asp-action="AddTVShow" method="post">
+
+                <div class="mb-3">
+                    <label asp-for="Title" class="form-label">TV Show Title</label>
+                    <input asp-for="Title" class="form-control" placeholder="Enter show title..." required />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Genre" class="form-label">Genre</label>
+                    <input asp-for="Genre" class="form-control" placeholder="Enter genre..." required />
+                    <span asp-validation-for="Genre" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ReleaseDate" class="form-label">Release Date</label>
+                    <input asp-for="ReleaseDate" class="form-control" type="date" required />
+                    <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Casts" class="form-label">Casts</label>
+                    <input asp-for="Casts" class="form-control" placeholder="Enter cast names..." required />
+                    <span asp-validation-for="Casts" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Duration" class="form-label">Duration (in minutes)</label>
+                    <input asp-for="Duration" class="form-control" type="number" placeholder="Enter duration..." required />
+                    <span asp-validation-for="Duration" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Country" class="form-label">Country</label>
+                    <input asp-for="Country" class="form-control" placeholder="Enter country..." required />
+                    <span asp-validation-for="Country" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Production" class="form-label">Production</label>
+                    <input asp-for="Production" class="form-control" placeholder="Enter production details..." required />
+                    <span asp-validation-for="Production" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label">Description</label>
+                    <textarea asp-for="Description" class="form-control" rows="4" placeholder="Enter description..." required></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="TVSeriesImageUrl" class="form-label">Image URL</label>
+                    <input asp-for="TVSeriesImageUrl" class="form-control" placeholder="Enter image URL..." required />
+                    <span asp-validation-for="TVSeriesImageUrl" class="text-danger"></span>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-lg" style="background-color: darkred; color: white;">
+                        Save TV Show
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+﻿@model MovieWebApp.Web.ViewModels.TVShows.EditTVShowViewModel
+
+@{
+    ViewData["Title"] = "Edit TV Show";
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4 text-center" style="color: darkred; font-weight: bold;">✏️ Edit TV Show</h2>
+
+    <form asp-controller="TVShows" asp-action="Edit" method="post" class="border p-4 rounded shadow bg-white">
+        <input type="hidden" asp-for="Id" />
+
+        <div class="mb-3">
+            <label asp-for="Title" class="form-label">Title</label>
+            <input asp-for="Title" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Genre" class="form-label">Genre</label>
+            <input asp-for="Genre" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Duration" class="form-label">Duration (minutes)</label>
+            <input asp-for="Duration" class="form-control" type="number" required />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="ReleaseDate" class="form-label">Release Date</label>
+            <input asp-for="ReleaseDate" class="form-control" type="date" required />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Casts" class="form-label">Casts</label>
+            <input asp-for="Casts" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Country" class="form-label">Country</label>
+            <input asp-for="Country" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Production" class="form-label">Production</label>
+            <input asp-for="Production" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label">Description</label>
+            <textarea asp-for="Description" class="form-control" rows="4" required></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="TVSeriesImageUrl" class="form-label">Image URL</label>
+            <input asp-for="TVSeriesImageUrl" class="form-control" type="url" required />
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-warning btn-lg">
+                <i class="fas fa-save"></i> Save
+            </button>
+        </div>
+    </form>
+</div>

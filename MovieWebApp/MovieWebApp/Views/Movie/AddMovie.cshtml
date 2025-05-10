@@ -1,0 +1,90 @@
+﻿@model MovieWebApp.Web.ViewModels.Movie.AddMovieViewModel
+
+@{
+    ViewData["Title"] = "Add a New Movie";
+}
+
+<div class="container py-5">
+    <!-- Title Centered -->
+    <div class="text-center mb-4">
+        <h1 class="display-4" style="color: darkred; font-weight: bold;">
+            🎬 Add a New Movie 🎥
+        </h1>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form asp-controller="Movie" asp-action="AddMovie" method="post">
+                <!-- Title -->
+                <div class="mb-3">
+                    <label asp-for="Title" class="form-label">Title</label>
+                    <input asp-for="Title" class="form-control" placeholder="Enter movie title..." />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+
+                <!-- Genre -->
+                <div class="mb-3">
+                    <label asp-for="Genre" class="form-label">Genre</label>
+                    <input asp-for="Genre" class="form-control" placeholder="Enter genre..." />
+                    <span asp-validation-for="Genre" class="text-danger"></span>
+                </div>
+
+                <!-- Duration -->
+                <div class="mb-3">
+                    <label asp-for="Duration" class="form-label">Duration (in minutes)</label>
+                    <input asp-for="Duration" type="number" class="form-control" min="1" placeholder="Enter duration..." />
+                    <span asp-validation-for="Duration" class="text-danger"></span>
+                </div>
+
+                <!-- Release Date -->
+                <div class="mb-3">
+                    <label asp-for="ReleaseDate" class="form-label">Release Date</label>
+                    <input asp-for="ReleaseDate" type="date" class="form-control" />
+                    <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+                </div>
+
+                <!-- Description -->
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label">Description</label>
+                    <textarea asp-for="Description" class="form-control" rows="3" placeholder="Enter a short description..."></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <!-- Casts -->
+                <div class="mb-3">
+                    <label asp-for="Casts" class="form-label">Casts</label>
+                    <input asp-for="Casts" class="form-control" placeholder="Enter main actors..." />
+                    <span asp-validation-for="Casts" class="text-danger"></span>
+                </div>
+
+                <!-- Country -->
+                <div class="mb-3">
+                    <label asp-for="Country" class="form-label">Country</label>
+                    <input asp-for="Country" class="form-control" placeholder="Enter country..." />
+                    <span asp-validation-for="Country" class="text-danger"></span>
+                </div>
+
+                <!-- Production -->
+                <div class="mb-3">
+                    <label asp-for="Production" class="form-label">Production</label>
+                    <input asp-for="Production" class="form-control" placeholder="Enter production company..." />
+                    <span asp-validation-for="Production" class="text-danger"></span>
+                </div>
+
+                <!-- Image URL -->
+                <div class="mb-3">
+                    <label asp-for="ImageUrl" class="form-label">Image URL</label>
+                    <input asp-for="ImageUrl" class="form-control" placeholder="Enter image URL..." />
+                    <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                </div>
+
+                <!-- Save Button -->
+                <div class="text-center">
+                    <button type="submit" class="btn btn-lg" style="background-color: darkred; color: white;">
+                        Save Movie
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

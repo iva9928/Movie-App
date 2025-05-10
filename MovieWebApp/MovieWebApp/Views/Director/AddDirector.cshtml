@@ -1,0 +1,49 @@
+﻿@model MovieWebApp.Web.ViewModels.Director.AddDirectorViewModel
+
+@{
+    ViewData["Title"] = "Add a New Director";
+}
+
+<div class="container py-5">
+    <div class="text-center mb-4">
+        <h1 class="display-4" style="color: darkred; font-weight: bold;">
+            🎬 Add a New Director 🎬
+        </h1>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form asp-controller="Director" asp-action="AddDirector" method="post">
+                <div class="mb-3">
+                    <label asp-for="FirstName" class="form-label">First Name</label>
+                    <input asp-for="FirstName" class="form-control" placeholder="Enter director's first name..." />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Surname" class="form-label">Surname</label>
+                    <input asp-for="Surname" class="form-control" placeholder="Enter director's surname..." />
+                    <span asp-validation-for="Surname" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label">Biography</label>
+                    <textarea asp-for="Description" class="form-control" rows="3" placeholder="Enter a short biography..."></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="DirectorImageUrl" class="form-label">Image URL</label>
+                    <input asp-for="DirectorImageUrl" class="form-control" placeholder="Enter image URL..." />
+                    <span asp-validation-for="DirectorImageUrl" class="text-danger"></span>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-lg" style="background-color: darkred; color: white;">
+                        Save Director
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

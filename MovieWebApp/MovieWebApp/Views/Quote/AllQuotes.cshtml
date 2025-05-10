@@ -1,35 +1,76 @@
-﻿@model IEnumerable<Quote>
+﻿@model MovieWebApp.Web.ViewModels.Quote.PaginatedQuotesViewModel
+
 @{
     ViewData["Title"] = "Quotes";
 }
 
 <div class="quotes-page" style="background: linear-gradient(to bottom, #fbe7c6, #fde2e4); min-height: 100vh; padding: 50px 0;">
     <div class="container py-5">
-        <h1 class="text-center mb-5" style="color: #e63946; font-family: 'Georgia', serif; font-weight: bold; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);">
-            🎭 Famous Quotes 🎭
-        </h1>
+        <!-- Header with Add Quote Button -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1 class="display-4 text-center flex-grow-1" style="color: #e63946; font-family: 'Georgia', serif; font-weight: bold; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);">
+                🎭 Famous Quotes 🎭
+            </h1>
+            <a asp-controller="Quote" asp-action="AddQuote" class="btn btn-lg" style="background-color: darkred; color: white;">
+                + Add Quote
+            </a>
+        </div>
+
+        <!-- Search and Filter Form -->
+        <form method="get" class="d-flex mb-3">
+            <input type="text" name="searchQuery" class="form-control me-2" placeholder="Search Quotes..." value="@Context.Request.Query["searchQuery"]">
+            <input type="text" name="characterFilter" class="form-control me-2" placeholder="Filter by Character..." value="@Context.Request.Query["characterFilter"]">
+            <input type="text" name="movieFilter" class="form-control me-2" placeholder="Filter by Movie/TV Show..." value="@Context.Request.Query["movieFilter"]">
+            <button type="submit" class="btn btn-danger">Search</button>
+        </form>
+
+        <!-- Centered Page Size Selection -->
+        <div class="text-center mb-3">
+            <span style="font-weight: bold; font-size: 1.2rem;">Show:</span>
+            <a asp-action="AllQuotes" asp-route-page="1" asp-route-pageSize="2" class="btn btn-outline-primary @(Model.PageSize == 2 ? "active" : "")">2</a>
+            <a asp-action="AllQuotes" asp-route-page="1" asp-route-pageSize="3" class="btn btn-outline-primary @(Model.PageSize == 3 ? "active" : "")">3</a>
+            <a asp-action="AllQuotes" asp-route-page="1" asp-route-pageSize="5" class="btn btn-outline-primary @(Model.PageSize == 5 ? "active" : "")">5</a>
+        </div>
+
+        <!-- Quotes Display -->
         <div class="row g-4">
-            @foreach (var quote in Model)
+            @foreach (var quote in Model.Quotes)
             {
                 <div class="col-md-6 col-lg-4">
                     <div class="card h-100 shadow-lg border-0" style="background: #ffffff; border-radius: 20px; overflow: hidden; transition: transform 0.3s;">
                         <div class="card-body text-center">
-                            <h5 style="font-size: 1.3rem; color: #1d3557; font-family: 'Courier New', monospace; font-weight: bold; margin-bottom: 15px;">
-                                "@quote.Description"
-                            </h5>
-                            <p style="font-size: 1rem; color: #6c757d; font-weight: 500; margin-bottom: 20px;">
-                                <strong>Character:</strong> @quote.CharacterName
-                            </p>
+                            <h5 class="quote-text">"@quote.Description"</h5>
+                            <p><strong>Character:</strong> @quote.CharacterName</p>
+                            <p><strong>Movie/Show:</strong> @quote.MovieOrShow</p>
                         </div>
                         <div class="card-footer text-center" style="background: #ffb4a2; padding: 15px;">
-                            <a asp-controller="Quote" asp-action="Details" asp-route-id="@quote.Id"
-                               class="btn" style="background-color: #e63946; color: white; border-radius: 50px; padding: 10px 20px; font-weight: bold; text-transform: uppercase; transition: background-color 0.3s;">
-                                Character?
-                            </a>
+                            <a asp-controller="Quote" asp-action="Details" asp-route-id="@quote.Id" class="btn btn-primary">Details</a>
+                            <a asp-controller="Quote" asp-action="Edit" asp-route-id="@quote.Id" class="btn btn-warning">Edit</a>
+                            <a asp-controller="Quote" asp-action="Delete" asp-route-id="@quote.Id" class="btn btn-danger">Delete</a>
                         </div>
                     </div>
                 </div>
             }
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination-container text-left mt-4">
+            <nav>
+                <ul class="pagination">
+                    <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
+                        <a class="page-link" asp-action="AllQuotes" asp-route-page="@(Model.CurrentPage - 1)" asp-route-pageSize="@Model.PageSize">Previous</a>
+                    </li>
+                    @for (int i = 1; i <= Model.TotalPages; i++)
+                    {
+                        <li class="page-item @(Model.CurrentPage == i ? "active" : "")">
+                            <a class="page-link" asp-action="AllQuotes" asp-route-page="@i" asp-route-pageSize="@Model.PageSize">@i</a>
+                        </li>
+                    }
+                    <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
+                        <a class="page-link" asp-action="AllQuotes" asp-route-page="@(Model.CurrentPage + 1)" asp-route-pageSize="@Model.PageSize">Next</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -52,5 +93,29 @@
 
     .btn:hover {
         background-color: #c9184a;
+    }
+
+    /* Pagination Styling */
+    .pagination-container {
+        text-align: left;
+        padding-left: 15px;
+    }
+
+    .pagination .page-item .page-link {
+        border-radius: 5px;
+        margin: 2px;
+        padding: 10px 15px;
+        color: #e63946;
+        border: 1px solid #e63946;
+    }
+
+    .pagination .page-item.active .page-link {
+        background-color: #e63946;
+        color: white;
+    }
+
+    .pagination .page-item.disabled .page-link {
+        background-color: #ccc;
+        color: #777;
     }
 </style>

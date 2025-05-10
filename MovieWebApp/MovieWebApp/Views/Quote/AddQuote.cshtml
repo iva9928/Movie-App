@@ -1,0 +1,49 @@
+﻿@model MovieWebApp.Web.ViewModels.Quote.AddQuoteViewModel
+
+@{
+    ViewData["Title"] = "Add a New Quote";
+}
+
+<div class="container py-5">
+    <div class="text-center mb-4">
+        <h1 class="display-4" style="color: darkred; font-weight: bold;">
+            📝 Add a New Quote 📝
+        </h1>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form asp-controller="Quote" asp-action="AddQuote" method="post">
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label">Quote</label>
+                    <textarea asp-for="Description" class="form-control" rows="3" placeholder="Enter quote..." required></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="CharacterName" class="form-label">Character Name</label>
+                    <input asp-for="CharacterName" class="form-control" placeholder="Enter character name..." required />
+                    <span asp-validation-for="CharacterName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="MovieOrShow" class="form-label">Movie/TV Show</label>
+                    <input asp-for="MovieOrShow" class="form-control" placeholder="Enter movie/show name..." required />
+                    <span asp-validation-for="MovieOrShow" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="CharacterImageUrl" class="form-label">Character Image URL</label>
+                    <input asp-for="CharacterImageUrl" class="form-control" placeholder="Enter image URL..." required />
+                    <span asp-validation-for="CharacterImageUrl" class="text-danger"></span>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-lg" style="background-color: darkred; color: white;">
+                        Save Quote
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

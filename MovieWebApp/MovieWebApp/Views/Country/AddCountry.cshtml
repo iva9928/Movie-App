@@ -1,0 +1,43 @@
+﻿@model MovieWebApp.Web.ViewModels.Country.AddCountryViewModel
+
+@{
+    ViewData["Title"] = "Add a New Country";
+}
+
+<div class="container py-5">
+    <div class="text-center mb-4">
+        <h1 class="display-4" style="color: darkred; font-weight: bold;">
+            🌍 Add a New Country 🌍
+        </h1>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form asp-controller="Country" asp-action="AddCountry" method="post">
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label">Country Name</label>
+                    <input asp-for="Name" class="form-control" placeholder="Enter country name..." />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label">Description</label>
+                    <textarea asp-for="Description" class="form-control" rows="3" placeholder="Enter description..."></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="CountryImageUrl" class="form-label">Image URL</label>
+                    <input asp-for="CountryImageUrl" class="form-control" placeholder="Enter image URL..." />
+                    <span asp-validation-for="CountryImageUrl" class="text-danger"></span>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-lg" style="background-color: darkred; color: white;">
+                        Save Country
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

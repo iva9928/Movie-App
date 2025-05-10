@@ -1,84 +1,84 @@
-﻿@model IEnumerable<Director>
+﻿@model MovieWebApp.Web.ViewModels.Director.PaginatedDirectorsViewModel
 
 @{
-    ViewData["Title"] = "Directors";
+    var searchFilter = ViewBag.SearchFilter as MovieWebApp.Web.ViewModels.Director.SearchFilterDirectorViewModel;
 }
 
-<<div class="directors-page" style="background: linear-gradient(to bottom, #fff7e6, #f9e0b7); min-height: 100vh; padding: 50px 0;">
-    <div class="container py-5">
-        <h1 class="text-center mb-5" style="color: #8b0000; font-family: 'Georgia', serif; font-weight: bold;">🎬 Top 5 Directors 🎥</h1>
-        <div class="row g-4">
-            @foreach (var director in Model)
-            {
-                <div class="col-md-6 col-lg-4">
-                    <div class="card h-100 shadow-lg border-0" style="background-color: #fff; border-radius: 15px;">
-                        <!-- Full-Format Director Image -->
-                        <div class="card-image-container" style="position: relative; overflow: hidden; border-radius: 15px 15px 0 0;">
-                            <img src="@director.DirectorImageUrl" alt="@director.FirstName" class="card-img-top img-fluid"
-                                 style="width: 100%; height: auto; display: block;">
-                        </div>
-                        <!-- Director Name Only -->
-                        <div class="card-body text-center">
-                            <h5 style="color: #8b0000; font-family: 'Courier New', Courier, monospace; font-weight: bold;">
-                                @director.FirstName @director.Surname
-                            </h5>
-                        </div>
-                        <!-- Details Button -->
-                        <div class="card-footer text-center" style="background-color: #fff7e6;">
-                            <a asp-controller="Director" asp-action="Details" asp-route-id="@director.Id"
-                               class="btn"
-                               style="background-color: #8b0000; color: white; border-radius: 50px; padding: 10px 20px; font-weight: bold; text-transform: uppercase; transition: background-color 0.3s ease;">
-                                Learn More
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            }
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="display-4 text-center flex-grow-1" style="color: darkred; font-weight: bold;">
+            🎬 All Directors 🎬
+        </h1>
+        <a asp-controller="Director" asp-action="AddDirector" class="btn btn-lg" style="background-color: darkred; color: white;">
+            + Add Director
+        </a>
+    </div>
+
+    <div class="text-center mb-3">
+        <span style="font-weight: bold; font-size: 1.2rem;">Show:</span>
+        <a asp-controller="Director" asp-action="AllDirectors" asp-route-page="1" asp-route-pageSize="2"
+           asp-route-searchQuery="@searchFilter.SearchQuery" asp-route-firstNameFilter="@searchFilter.FirstNameFilter"
+           asp-route-surnameFilter="@searchFilter.SurnameFilter"
+           class="btn btn-outline-primary @(Model.PageSize == 2 ? "active" : "")">2</a>
+        <a asp-controller="Director" asp-action="AllDirectors" asp-route-page="1" asp-route-pageSize="3"
+           asp-route-searchQuery="@searchFilter.SearchQuery" asp-route-firstNameFilter="@searchFilter.FirstNameFilter"
+           asp-route-surnameFilter="@searchFilter.SurnameFilter"
+           class="btn btn-outline-primary @(Model.PageSize == 3 ? "active" : "")">3</a>
+        <a asp-controller="Director" asp-action="AllDirectors" asp-route-page="1" asp-route-pageSize="5"
+           asp-route-searchQuery="@searchFilter.SearchQuery" asp-route-firstNameFilter="@searchFilter.FirstNameFilter"
+           asp-route-surnameFilter="@searchFilter.SurnameFilter"
+           class="btn btn-outline-primary @(Model.PageSize == 5 ? "active" : "")">5</a>
+    </div>
+
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-8">
+            <form asp-controller="Director" asp-action="AllDirectors" method="get" class="d-flex">
+                <input type="text" name="searchQuery" value="@searchFilter.SearchQuery" class="form-control me-2" placeholder="Search Directors..." />
+                <input type="text" name="firstNameFilter" value="@searchFilter.FirstNameFilter" class="form-control me-2" placeholder="Filter by First Name..." />
+                <input type="text" name="surnameFilter" value="@searchFilter.SurnameFilter" class="form-control me-2" placeholder="Filter by Surname..." />
+                <button type="submit" class="btn btn-danger">Search</button>
+            </form>
         </div>
     </div>
+
+    <div class="row g-4">
+        @foreach (var director in Model.Directors)
+        {
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-lg border-0" style="background-color: beige; border-radius: 15px;">
+                    <img src="@director.DirectorImageUrl" class="card-img-top img-fluid" alt="@director.FirstName">
+                    <div class="card-body text-center">
+                        <h3 style="color: darkred; font-family: 'Georgia', serif; font-weight: bold;">
+                            @director.FirstName @director.Surname
+                        </h3>
+                    </div>
+                    <div class="card-footer text-center" style="background-color: beige;">
+                        <a asp-controller="Director" asp-action="Details" asp-route-id="@director.Id" class="btn btn-outline-dark">
+                            View Details
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="pagination text-center mt-4">
+        @if (Model.TotalPages > 1)
+        {
+            <a asp-controller="Director" asp-action="AllDirectors" asp-route-page="@(Model.CurrentPage - 1)" asp-route-pageSize="@Model.PageSize"
+               asp-route-searchQuery="@searchFilter.SearchQuery" asp-route-firstNameFilter="@searchFilter.FirstNameFilter" asp-route-surnameFilter="@searchFilter.SurnameFilter"
+               class="btn btn-secondary @(Model.CurrentPage == 1 ? "disabled" : "")">Previous</a>
+
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <a asp-controller="Director" asp-action="AllDirectors" asp-route-page="@i" asp-route-pageSize="@Model.PageSize"
+                   asp-route-searchQuery="@searchFilter.SearchQuery" asp-route-firstNameFilter="@searchFilter.FirstNameFilter" asp-route-surnameFilter="@searchFilter.SurnameFilter"
+                   class="btn @(Model.CurrentPage == i ? "btn-primary" : "btn-outline-primary")">@i</a>
+            }
+
+            <a asp-controller="Director" asp-action="AllDirectors" asp-route-page="@(Model.CurrentPage + 1)" asp-route-pageSize="@Model.PageSize"
+               asp-route-searchQuery="@searchFilter.SearchQuery" asp-route-firstNameFilter="@searchFilter.FirstNameFilter" asp-route-surnameFilter="@searchFilter.SurnameFilter"
+               class="btn btn-secondary @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">Next</a>
+        }
+    </div>
 </div>
-
-<style>
-    .directors-page {
-        font-family: 'Arial', sans-serif;
-        background: linear-gradient(to bottom, #fff7e6, #f9e0b7); /* Beige-like gradient */
-        padding: 50px 0;
-    }
-
-    /* Title Styling */
-    h1 {
-        font-size: 2.5rem;
-        color: #8b0000;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-    }
-
-    /* Card Styling */
-    .card {
-        border-radius: 15px;
-        overflow: hidden;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-        .card:hover {
-            transform: scale(1.03);
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-    /* Full-Format Image Styling */
-    .card-image-container img {
-        width: 100%;
-        height: auto; /* Maintains the aspect ratio */
-        display: block;
-    }
-
-    /* Button Styling */
-    .card-footer a {
-        text-decoration: none;
-        transition: background-color 0.3s ease, transform 0.2s ease;
-    }
-
-        .card-footer a:hover {
-            background-color: #b22222;
-            transform: scale(1.05);
-        }
-</style>
