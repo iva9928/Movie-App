@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieApp.Data;
 
@@ -11,9 +12,11 @@ using MovieApp.Data;
 namespace MovieApp.Data.Migrations
 {
     [DbContext(typeof(MovieAppDbContext))]
-    partial class MovieAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250204132557_AllowNullCasts")]
+    partial class AllowNullCasts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -256,7 +259,7 @@ namespace MovieApp.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("74e65031-59fb-4dc0-90e4-7ce289f4beba"),
+                            Id = new Guid("5c745bdd-70c1-4312-b5db-010875f7eef9"),
                             ActorImageUrl = "https://images.fandango.com/ImageRenderer/300/0/redesign/static/img/default_poster.png/0/images/masterrepository/performer%20images/132947/BradleyCooper-2022_r.jpg",
                             Description = "Bradley Cooper is a highly acclaimed American actor and filmmaker known for his versatility and dedication to his craft. He was born on January 5, 1975, in Philadelphia, Pennsylvania. Over the years, he has established himself as one of the most talented and bankable stars in Hollywood.",
                             FirstName = "Bradley",
@@ -264,7 +267,7 @@ namespace MovieApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("7ac649b1-5e5b-4fed-ae0b-555c30bde239"),
+                            Id = new Guid("86803841-d18c-4310-ae4e-407b81e64aaf"),
                             ActorImageUrl = "https://i0.gmx.ch/image/610/39010610,pd=1,f=sdata11/colman-domingo.jpg",
                             Description = "Colman Domingo is an acclaimed American actor, playwright, and director known for his versatile performances across theater, film, and television. Born on November 28, 1969, in Philadelphia, Pennsylvania, he has built a career marked by powerful storytelling and emotional depth.",
                             FirstName = "Colman",
@@ -272,7 +275,7 @@ namespace MovieApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("25d20e3e-c0b4-436e-af25-6fb594083d51"),
+                            Id = new Guid("a23181cc-bfda-402e-aa88-08bb73cbf547"),
                             ActorImageUrl = "https://s.abcnews.com/images/GMA/240222_gma_digital_paul_giamatti_hpMain_4x5_608.jpg",
                             Description = "Paul Giamatti is a celebrated American actor known for his versatility and compelling performances in both leading and supporting roles. Born on June 6, 1967, in New Haven, Connecticut, he has built a distinguished career across film, television, and theater.",
                             FirstName = "Paul",
@@ -280,7 +283,7 @@ namespace MovieApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("cd592f2c-b583-45ed-8f77-508c0f6c0786"),
+                            Id = new Guid("c05a9af4-1cf1-45cf-ac3d-24fc5f8e5db5"),
                             ActorImageUrl = "https://m.media-amazon.com/images/M/MV5BMTM3OTUwMDYwNl5BMl5BanBnXkFtZTcwNTUyNzc3Nw@@._V1_.jpg",
                             Description = "Scarlett Johansson is an award-winning American actress and singer, widely regarded as one of the most talented and versatile performers of her generation. Born on November 22, 1984, in New York City, she has achieved immense success in both independent films and blockbuster franchises.",
                             FirstName = "Scarlett",
@@ -288,7 +291,7 @@ namespace MovieApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("26579a75-efe9-459f-92c0-9b756d3aa6e5"),
+                            Id = new Guid("dfcc5aeb-019f-4a09-a20a-63800c84443b"),
                             ActorImageUrl = "https://i.pinimg.com/736x/b0/86/f1/b086f106f5f95f68df6d86b8fab10b6d.jpg",
                             Description = "Cillian Murphy is an Irish actor renowned for his intense performances and transformative roles across film, television, and theater. Born on May 25, 1976, in Douglas, County Cork, Ireland, Murphy is celebrated for his versatility and ability to portray complex, nuanced characters.",
                             FirstName = "Cillian",
@@ -323,35 +326,35 @@ namespace MovieApp.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d8341f9d-c9ad-4997-bc1c-01b5fa8037fc"),
+                            Id = new Guid("f552ef83-dc43-478d-ab34-7ea41e439d61"),
                             CountryImageUrl = "https://cdn.britannica.com/33/4833-050-F6E415FE/Flag-United-States-of-America.jpg",
                             Description = "The U.S. film industry, centered in Hollywood, is the largest and most influential in the world, known for its high-budget productions and global reach. It produces a diverse range of films, from independent projects to blockbuster franchises like Star Wars and the Marvel Cinematic Universe. As a cultural powerhouse, it shapes global trends in storytelling, technology, and entertainment.",
                             Name = "United States"
                         },
                         new
                         {
-                            Id = new Guid("73e0e6b1-fcad-4ede-b643-ff637725e1d7"),
+                            Id = new Guid("8cacd583-4cd2-47c9-9bfa-b68ac0f01b40"),
                             CountryImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Flag_of_the_People%27s_Republic_of_China.svg/800px-Flag_of_the_People%27s_Republic_of_China.svg.png",
                             Description = "The Chinese film industry is one of the largest in the world, known for its blend of traditional storytelling and modern blockbusters. It boasts a massive domestic audience, government support, and global recognition, with hits like The Wandering Earth and directors such as Zhang Yimou. China's industry continues to expand, influencing both local culture and the global market.",
                             Name = "China"
                         },
                         new
                         {
-                            Id = new Guid("7e5b4881-6546-4e1b-aec2-83bdedd03045"),
+                            Id = new Guid("78ed5d62-9a65-4efa-a1fe-977918d6d0be"),
                             CountryImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Flag_of_India.svg/2560px-Flag_of_India.svg.png",
                             Description = "India's film industry, known as Bollywood and regional cinema hubs like Tollywood and Kollywood, is the largest in the world by volume, producing over 1,500 films annually. Renowned for its vibrant musicals, emotional storytelling, and diverse languages, it caters to a massive domestic audience and a growing global fanbase. Iconic productions like RRR and Dangal highlight its increasing international influence.",
                             Name = "India"
                         },
                         new
                         {
-                            Id = new Guid("a9ecb5f4-d975-4caf-80cf-9f22a4088398"),
+                            Id = new Guid("0ea96116-6ad3-4ae2-bf79-107456eb2832"),
                             CountryImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Flag_of_the_United_Kingdom_%281-2%29.svg/1200px-Flag_of_the_United_Kingdom_%281-2%29.svg.png",
                             Description = "The UK film industry is renowned for its rich cinematic heritage and world-class talent, contributing significantly to global cinema. Known for iconic franchises like James Bond and Harry Potter, it blends independent filmmaking with major international co-productions. Supported by institutions like the British Film Institute (BFI), it remains a hub for creativity and innovation in film.",
                             Name = "United Kingdom"
                         },
                         new
                         {
-                            Id = new Guid("e9e164c5-f640-4443-986b-3f51fb255bde"),
+                            Id = new Guid("ffe73b12-8fd3-44ab-9688-d889f680754d"),
                             CountryImageUrl = "https://cdn.britannica.com/82/682-050-8AA3D6A6/Flag-France.jpg",
                             Description = "The French film industry, often regarded as the birthplace of cinema, is celebrated for its artistic innovation and rich storytelling tradition. Known for iconic directors like François Truffaut and Jean-Luc Godard, it produces a mix of auteur-driven films and popular comedies. Supported by strong government funding, France remains a global leader in cinematic culture and hosts the prestigious Cannes Film Festival.",
                             Name = "France"
@@ -394,7 +397,7 @@ namespace MovieApp.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("2a341174-5a2e-499b-9347-ea88484e0691"),
+                            Id = new Guid("1b060870-a9ad-4627-9bc3-ab5389b4338d"),
                             Description = "Christopher Nolan is a visionary British-American filmmaker celebrated for his innovative storytelling.",
                             DirectorImageUrl = "https://m.media-amazon.com/images/M/MV5BNjE3NDQyOTYyMV5BMl5BanBnXkFtZTcwODcyODU2Mw@@._V1_FMjpg_UX1000_.jpg",
                             FamousMovies = "Oppenheimer (2023), Tenet (2020), Dunkirk (2017)",
@@ -403,7 +406,7 @@ namespace MovieApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("746df2e4-c271-4092-a3f1-7baa87588f01"),
+                            Id = new Guid("e7b5c88e-25a4-4d45-8d78-15b06e6dd348"),
                             Description = "Rajkumar Hirani is a renowned Indian filmmaker celebrated for his ability to blend humor and emotion.",
                             DirectorImageUrl = "https://upload.wikimedia.org/wikipedia/commons/4/44/Rajkumar_Hirani_2014.jpg",
                             FamousMovies = "Dunki (2023), PK (2014), Munna Bhai M.B.B.S. (2003)",
@@ -412,7 +415,7 @@ namespace MovieApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("26fbee2f-5563-4402-a43a-42a4f4dde96f"),
+                            Id = new Guid("13b92d0f-fa92-4921-ad77-e54a08d1e541"),
                             Description = "Frank Darabont is known for his mastery in adapting emotionally resonant films from Stephen King's works.",
                             DirectorImageUrl = "https://m.media-amazon.com/images/M/MV5BNjk0MTkxNzQwOF5BMl5BanBnXkFtZTcwODM5OTMwNA@@._V1_.jpg",
                             FamousMovies = "The Mist (2007), The Shawshank Redemption (1994), The Green Mile (1999)",
@@ -421,7 +424,7 @@ namespace MovieApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c8ef3317-86e3-460a-a638-404825b1cca5"),
+                            Id = new Guid("6bf6a31b-202e-4402-b3d4-8a8a4a8fbdb5"),
                             Description = "Andrei Tarkovsky was a legendary Soviet filmmaker known for his poetic and visually stunning films.",
                             DirectorImageUrl = "https://images.mubicdn.net/images/cast_member/1039/cache-4-1337461025/image-w856.jpg",
                             FamousMovies = "The Sacrifice (1986), Nostalghia (1983), Stalker (1979)",
@@ -430,7 +433,7 @@ namespace MovieApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("8fe059d9-edd1-4495-9828-7e217f9845f8"),
+                            Id = new Guid("16569a83-5845-46bc-b3a2-4c613e17f4ea"),
                             Description = "Stanley Kubrick was an iconic filmmaker celebrated for his innovative techniques and cinematic mastery.",
                             DirectorImageUrl = "https://www.all-about-photo.com/images/photographer/K/PHOT-stanley-kubrick-30.jpg",
                             FamousMovies = "The Shining (1980), 2001: A Space Odyssey (1968), Eyes Wide Shut (1999)",
@@ -492,7 +495,7 @@ namespace MovieApp.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("c9f98e0c-f9a2-485c-8afc-4dc9ae0c879c"),
+                            Id = new Guid("5acc23a1-2412-4756-b19f-2146a906d67d"),
                             Casts = "Marilyn Burns, Allen Danziger, Paul A. Partain, William Vail, Teri McMinn",
                             Country = "United States of America",
                             Description = "A chain-saw wielding his category of cannibals and killer hunts and terrorized five friends visiting their grandfather's house from the country",
@@ -505,7 +508,7 @@ namespace MovieApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("61eea9d0-4f87-45b6-bd09-b233fa4a5160"),
+                            Id = new Guid("3372360b-93e7-4d9d-96a6-21b4ab916cd2"),
                             Casts = "Ellen Burstyn, Jason Miller, Max von Sydow, Linda Blair, Lee J. Cobb",
                             Country = "United States of America",
                             Description = "As strange events befall the place of Georgetown 12-year-old Regan MacNeil begins to adapt an explicit personality. Her mum ultimately turns into her hope, and becomes torn between superstition and science at a desperate bid to save her daughter: a priest who's currently fighting along with his own faith Father Damien Karras.",
@@ -518,7 +521,7 @@ namespace MovieApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("336e3a75-51a5-4da5-860c-ab8d55a9e8a5"),
+                            Id = new Guid("6393103a-386b-426f-9340-daf1dbde7c70"),
                             Casts = "Jack Nicholson, Shelley Duvall, Danny Lloyd, Scatman Crothers, Barry Nelson",
                             Country = "United Kingdom, United States of America",
                             Description = "Jack Torrance accepts a caretaker job at the Overlook Hotel, where he, together with his wife Wendy and their son Danny, has to live isolated. But they aren't ready for the insanity that lurks within.",
@@ -531,7 +534,7 @@ namespace MovieApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c51d7e56-30c3-402f-b65f-eef3f913cbe6"),
+                            Id = new Guid("3e04e7b4-e1a6-456b-af9b-b0aa6c76c783"),
                             Casts = "Patrick Wilson, Vera Farmiga, Lili Taylor, Ron Livingston, Mackenzie Foy",
                             Country = "United States of America",
                             Description = "Paranormal investigators Ed and Lorraine Warren work to help a family terrorized by way of a presence in their own farm house. The Warrens are trapped in the terrifying case of his or her lifetimes.",
@@ -544,7 +547,7 @@ namespace MovieApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("e233a5d7-62c1-41cb-8596-0815d32a663f"),
+                            Id = new Guid("46c2c8f2-6008-4da8-9653-97d79e3cf772"),
                             Casts = "Naomi Watts, Martin Henderson, David Dorfman, Brian Cox, Jane Alexander",
                             Country = "Japan, United States of America",
                             Description = "It seemed leading to a cellular mobile cell phone call foretelling the viewer's death in exactly seven days. Like a newspaper reporter, Rachel Keller was clearly skeptical of this story, until four teenagers all met with mysterious deaths exactly 1 week. Allowing her investigative curiosity to get the better of her, Rachel tracks down the video... and watches it. She has just seven days to unravel the mystery of the Ring.",
@@ -557,7 +560,7 @@ namespace MovieApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("53f751ca-fcc6-4d3e-97b5-697dabed6d21"),
+                            Id = new Guid("ae01bbb5-27da-4228-805a-1465b4e2d6cf"),
                             Casts = "Beatrice Rubica, Lili Bordán, Jared Morgan, Lynnette Gaza, David Horovitch",
                             Country = "United States of America",
                             Description = "The Vatican sends a priest with a past and a novitiate on the brink of her final cries to explore Every time a nun in a abbey at Romania takes her own life. They uncover the order secret. Risking not only their lives but their faith and their very souls, they face a malevolent force at the kind of the same demonic nun that terrorized audiences at\"The Conjuring 2\" as the abbey gets to be a dreadful battle ground between the alive and the damned.",
@@ -570,7 +573,7 @@ namespace MovieApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d3153c91-cca4-45dc-bc3f-6d376240b625"),
+                            Id = new Guid("f310d360-9044-4018-9c94-091bb504978a"),
                             Casts = "Ethan Hawke, Juliet Rylance, Vincent D'Onofrio, James Ransone, Fred Dalton Thompson",
                             Country = "United States of America",
                             Description = "Footage helps a truecrime novelist realize a household has been killed inside his new residence, though his discoveries put his family.",
@@ -583,7 +586,7 @@ namespace MovieApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("e08e63e9-57ef-4e49-8a4c-07873016ddf1"),
+                            Id = new Guid("8c418114-f8ce-4479-9b8e-1ef3f4392c8e"),
                             Casts = "Maika Monroe, Keir Gilchrist, Daniel Zovatto, Olivia Luccardi, Lili Sepe",
                             Country = "United States of America",
                             Description = "To get 19-year-old Jay, autumn should be all about boys school and weekends out at the lake. But a seemingly innocent encounter gives her inescapable sense that some one , or something, is after her and turns sour. Up against this weight, Jay and her friends must find a means to flee.",
@@ -596,7 +599,7 @@ namespace MovieApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("b36a1170-f581-4236-90a9-19a983adebd6"),
+                            Id = new Guid("f061fe4c-fa23-4ebc-b3ec-264b4ecfb17f"),
                             Casts = "Essie Davis, Noah Wiseman, Hayley McElhinney, Daniel Henshall, Barbara West",
                             Country = "Canada, Australia",
                             Description = "A single mommy, harassed with her husband's brutal death , struggles with her son's anxiety about a monster lurking in your house, but soon discovers a menacing presence all.",
@@ -609,7 +612,7 @@ namespace MovieApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d2ded31c-1144-4451-af0b-932a598b2419"),
+                            Id = new Guid("50683360-1871-44f9-96d5-29943dee8aa5"),
                             Casts = "Nicole Kidman, Christopher Eccleston, Alakina Mann, James Bentley, Eric Sykes",
                             Country = "Spain, United States of America, France, Italy",
                             Description = "Grace is really actually a woman who resides in a older house kept dark because her two children have a rare sensitivity. When your household begins to suspect your house is haunted, Grace fights to protect her kids at any cost at the face of strange events and disturbing fantasies.",
@@ -654,7 +657,7 @@ namespace MovieApp.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("8f90e9fd-fba7-48b6-9fd1-114b3124412a"),
+                            Id = new Guid("380b4cdc-4308-4c55-8c34-e98269cb9a4a"),
                             CharacterImageUrl = "https://i.pinimg.com/736x/1a/2b/b5/1a2bb5bcb59578199ee35f7f03c97876.jpg",
                             CharacterName = "Michael Scofield",
                             Description = "'Sometimes, the only way to truly escape the past is to keep moving forward.'",
@@ -662,7 +665,7 @@ namespace MovieApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("41cf36d7-5c68-484d-9536-11dc47d7f48a"),
+                            Id = new Guid("9f0aa006-f59d-438c-bade-42b33c2341fb"),
                             CharacterImageUrl = "https://upload.wikimedia.org/wikipedia/en/5/50/Tyrion_Lannister-Peter_Dinklage.jpg",
                             CharacterName = "Tyrion Lannister",
                             Description = "“Never forget what you are. The rest of the world will not. Wear it like armor, and it can never be used to hurt you.”",
@@ -670,7 +673,7 @@ namespace MovieApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("a2cc62ff-66fa-41df-b1e3-e354bedcfad2"),
+                            Id = new Guid("3def880f-fc1a-484a-98b1-a65de95b9912"),
                             CharacterImageUrl = "https://i.pinimg.com/originals/a9/74/12/a97412747c6d13646367d5e5912cee4c.jpg",
                             CharacterName = "Fernando Sucre",
                             Description = "“When you love someone, you’ll do anything for them. Even if it means breaking every rule in the book.”",
@@ -678,7 +681,7 @@ namespace MovieApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("6a9f3469-d0ca-4050-9543-5a97070b1d5d"),
+                            Id = new Guid("a3a7e922-daba-407c-bb24-d3efca61d04f"),
                             CharacterImageUrl = "https://upload.wikimedia.org/wikipedia/en/9/9b/Yoda_Empire_Strikes_Back.png",
                             CharacterName = "Yoda",
                             Description = "“Do, or do not. There is no try.”",
@@ -686,7 +689,7 @@ namespace MovieApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("7d8515d1-1ee3-4bc0-8130-3f749f5085c8"),
+                            Id = new Guid("8d1014a1-5445-4d2f-b365-c698ec1698e1"),
                             CharacterImageUrl = "https://upload.wikimedia.org/wikipedia/en/9/94/Forest_Gump_Character.jpg",
                             CharacterName = "Forest Gump",
                             Description = "“Life is like a box of chocolates. You never know what you’re gonna get.”",
@@ -748,7 +751,7 @@ namespace MovieApp.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ebae60a7-02d9-4060-984d-58c3ea859c5f"),
+                            Id = new Guid("3cdff1a0-2803-40eb-aa6a-b584f3ef9673"),
                             Casts = "Wentworth Miller, Dominic Purcell, Sarah Wayne Callies, Paul Adelstein, Rockmond Dunbar",
                             Country = "United States of America",
                             Description = "Due to a political warfare, an innocent man has been sent to death row and his only hope is his own brother, who makes it his obligation to deliberately get himself shipped to the identical prison as a way to break both of them out, from the inside out.",
@@ -761,7 +764,7 @@ namespace MovieApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("30c5f192-107a-4a36-acdb-1e28109100c3"),
+                            Id = new Guid("93cbabaa-8fcb-4b15-9839-7372e5fb2e0f"),
                             Casts = "Bryan Cranston, Anna Gunn, Aaron Paul, Dean Norris, Betsy Brandt",
                             Country = " United States of America",
                             Description = "When a New Mexico chemistry educator, Walter White, has been diagnosed with Stage III cancer and given a prognosis of two years ago to live. He's filled to secure his family's financial future at any cost since he enters the dangerous environment of crime and drugs.",
@@ -774,7 +777,7 @@ namespace MovieApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("9d537d85-82b9-4933-bab3-96891c1eb747"),
+                            Id = new Guid("9caa61c7-6465-4d57-9088-5286643fc318"),
                             Casts = "Cillian Murphy, Paul Anderson, Helen McCrory, Sophie Rundle, Joe Cole",
                             Country = "United Kingdom",
                             Description = "A gangster family epic set in England, 1919 Birmingham and predicated on their boss Tommy Shelby, who means to maneuver on earth, along with a gang that sew razor blades from the peaks of their caps.",
@@ -787,7 +790,7 @@ namespace MovieApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d6263773-9274-4931-90f8-19603dcd2b11"),
+                            Id = new Guid("5e8e7066-f40e-4c4c-ae79-15a4b28d3b6a"),
                             Casts = "Paul Wesley, Ian Somerhalder, Nina Dobrev, Kat Graham, Candice King",
                             Country = "United States of America",
                             Description = "The story of two brothers obsessed with the same girl, that bears a striking resemblance to the beautiful but ruthless vampire they knew and adored from 1864.",
@@ -800,7 +803,7 @@ namespace MovieApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("0a79a0f5-1479-4fb5-88b0-6f94d901357a"),
+                            Id = new Guid("44cc82da-56c8-4e4f-bab5-0c6912527caf"),
                             Casts = "Blake Lively, Leighton Meester, Penn Badgley, Chace Crawford, Ed Westwick",
                             Country = "United States of America",
                             Description = "A private group of privileged teens out of the prep school on Manhattan's Upper East Side whose lives revolve round the allknowing albeit ultra-secretive Gossip Girl's site.",
