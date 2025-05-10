@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using MovieApp.DataModels;
+﻿using Microsoft.AspNetCore.Mvc;
 using MovieWebApp.Services.Data.Interfaces;
 using MovieWebApp.Web.ViewModels.Movie;
 
@@ -9,113 +7,153 @@ namespace MovieWebApp.Controllers
     public class MovieController : Controller
     {
         private readonly IMovieService movieService;
+        private const int DefaultPageSize = 3;
 
         public MovieController(IMovieService movieService)
         {
             this.movieService = movieService;
         }
 
-        // Get all Movies
+       
         [HttpGet]
-        public async Task<IActionResult> AllMovies()
+        public async Task<IActionResult> AllMovies(string searchQuery = "", string genreFilter = "", int page = 1, int pageSize = 3)
         {
-            IEnumerable<Movie> allMovies = await this.movieService.GetAllMoviesAsync();
+            var allMovies = await movieService.GetFilteredMoviesAsync(searchQuery, genreFilter);
 
-            //AllMoviesSearchanFilterViewModel viewModel = new AllMoviesSearchanFilterViewModel()
-            //{
-            //    AllDurations = 
-            //};
+            int totalMovies = allMovies.Count();
+            int totalPages = (int)Math.Ceiling(totalMovies / (double)pageSize);
 
+            var pagedMovies = allMovies
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
 
-            return View(allMovies);
+            var viewModel = new PaginatedMoviesViewModel
+            {
+                Movies = pagedMovies,
+                CurrentPage = page,
+                TotalPages = totalPages,
+                PageSize = pageSize
+            };
+
+            var searchFilter = new SearchFilterMovieViewModel
+            {
+                SearchQuery = searchQuery,
+                GenreFilter = genreFilter,
+                AvailableGenres = await movieService.GetGenresAsync()
+            };
+
+            ViewBag.SearchFilter = searchFilter;
+
+            return View(viewModel);
         }
 
-        // Get Movie details
+
+
+        [HttpGet]
+        public IActionResult AddMovie()
+        {
+            return View(new AddMovieViewModel());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddMovie(AddMovieViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            await movieService.AddMovieAsync(model);
+            return RedirectToAction(nameof(AllMovies));
+        }
+
+        // GET: Movie Details
         [HttpGet]
         public async Task<IActionResult> Details(string id)
         {
             try
             {
-                var movie = await this.movieService.GetMovieDetailsAsync(id);
+                var movie = await movieService.GetMovieDetailsAsync(id);
                 if (movie == null)
                 {
-                    return NotFound();
+                    return RedirectToAction("Error404", "Home");
                 }
 
-                return View(movie);
+                return View("Details", movie); // Ensure this matches the view name
             }
             catch (ArgumentException ex)
             {
-                // Handle invalid GUID error
                 return BadRequest(ex.Message);
             }
         }
 
-        // Add Movie (GET)
+        // GET: Edit Movie Form
         [HttpGet]
-        [Authorize(Roles = "Admin")]
-        public IActionResult AddMovie()
+        //[Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Edit(string id)
         {
-            return View();
+            var movie = await movieService.GetEditModelAsync(id);
+            if (movie == null)
+            {
+                return NotFound();
+            }
+
+            return View(movie);
         }
 
-        // Add Movie (POST)
+        // POST: Edit Movie
         [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> AddMovie(Movie movie)
+        //[Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Edit(EditMovieViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return View(movie);
+                return View(model);
             }
 
-            await this.movieService.AddMovieAsync(movie);
+            bool updated = await movieService.EditMovieAsync(model);
+            if (!updated)
+            {
+                return NotFound();
+            }
+
             return RedirectToAction(nameof(AllMovies));
         }
 
-        // Delete Movie
-        [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteMovie(string id)
-        {
-            try
-            {
-                bool isDeleted = await this.movieService.DeleteMovieAsync(id);
-
-                if (!isDeleted)
-                {
-                    return NotFound();
-                }
-
-                return RedirectToAction(nameof(AllMovies));
-            }
-            catch (ArgumentException ex)
-            {
-                // Handle invalid GUID error
-                return BadRequest(ex.Message);
-            }
-        }
+        // GET: Confirm Delete Movie
         [HttpGet]
-        public IActionResult AllMoviesSearch()
+        //[Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Delete(string id)
         {
-            // Mock data for testing - Replace this with data fetched from your database or service
-            var movies = new List<AllMoviesViewModel>
+            var movie = await movieService.GetMovieDetailsAsync(id);
+            if (movie == null)
             {
-                new AllMoviesViewModel { Id = "1", Title = "Inception", Duration = "148", ImageUrl = "img1.jpg" },
-                new AllMoviesViewModel { Id = "2", Title = "Titanic", Duration = "195", ImageUrl = "img2.jpg" }
+                return NotFound();
+            }
+
+            var deleteModel = new DeleteMovieViewModel
+            {
+                Id = movie.Id,
+                Title = movie.Title,
+                ReleaseDate = movie.ReleaseDate
             };
 
-            var viewModel = new AllMoviesSearchanFilterViewModel
-            {
-                Movies = movies,
-                SearchQuery = "",
-                DurationFilter = "",
-                CurrentPage = 1,
-                EntitiesPerPage = 5,
-                TotalPages = 1
-            };
+            return View(deleteModel);
+        }
 
-            return View(viewModel);
+        // POST: Delete Movie
+        [HttpPost]
+        //[Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Delete(DeleteMovieViewModel model)
+        {
+            bool isDeleted = await movieService.DeleteMovieAsync(model.Id);
+            if (!isDeleted)
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction(nameof(AllMovies));
         }
     }
 }

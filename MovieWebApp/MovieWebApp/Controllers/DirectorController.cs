@@ -1,60 +1,174 @@
-﻿namespace MovieApp.Web.Controllers
+﻿using Microsoft.AspNetCore.Mvc;
+using MovieWebApp.Services.Data.Interfaces;
+using MovieWebApp.Web.ViewModels.Director;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace MovieWebApp.Controllers
 {
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
-    using MovieApp.Data;
-    using MovieApp.DataModels;
-    using MovieWebApp.Controllers;
-    using MovieWebApp.Services.Data.Interfaces;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
     public class DirectorController : Controller
     {
-        private readonly MovieAppDbContext dbContext;
+        private readonly IDirectorService directorService;
+        private const int DefaultPageSize = 3;
 
-        private IDirectorService directorService;
-
-        public DirectorController(MovieAppDbContext dbContext, IDirectorService directorService)
+        public DirectorController(IDirectorService directorService)
         {
-            this.dbContext = dbContext;
-
-            this.directorService
-                = directorService;
+            this.directorService = directorService;
         }
 
+        /// <summary>
+        /// Shows all directors with pagination and filtering.
+        /// </summary>
         [HttpGet]
-        //[Authorize]
-        //[Route("Director/All")]
-        public async Task<IActionResult> AllDirectors()
+        public async Task<IActionResult> AllDirectors(string searchQuery = "", string firstNameFilter = "", string surnameFilter = "", int page = 1, int pageSize = DefaultPageSize)
         {
-           
-            IEnumerable<Director> allDirectors = await this.directorService.GetAllDirectorsAsync();
+            var allDirectors = await directorService.GetFilteredDirectorsAsync(searchQuery, firstNameFilter, surnameFilter);
 
-            return View(allDirectors);
+            int totalDirectors = allDirectors.Count();
+            int totalPages = (int)Math.Ceiling(totalDirectors / (double)pageSize);
+
+            var pagedDirectors = allDirectors
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            var viewModel = new PaginatedDirectorsViewModel
+            {
+                Directors = pagedDirectors,
+                CurrentPage = page,
+                TotalPages = totalPages,
+                PageSize = pageSize
+            };
+
+            var searchFilter = new SearchFilterDirectorViewModel
+            {
+                SearchQuery = searchQuery,
+                FirstNameFilter = firstNameFilter,
+                SurnameFilter = surnameFilter
+            };
+
+            ViewBag.SearchFilter = searchFilter;
+
+            return View(viewModel);
         }
 
+        /// <summary>
+        /// Displays form to add a new director.
+        /// </summary>
+        [HttpGet]
+        public IActionResult AddDirector()
+        {
+            return View(new AddDirectorViewModel());
+        }
+
+        /// <summary>
+        /// Handles form submission for adding a new director.
+        /// </summary>
+        [HttpPost]
+        public async Task<IActionResult> AddDirector(AddDirectorViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            await directorService.AddDirectorAsync(model);
+            return RedirectToAction(nameof(AllDirectors));
+        }
+
+        /// <summary>
+        /// Displays director details.
+        /// </summary>
         [HttpGet]
         public async Task<IActionResult> Details(string id)
         {
             try
             {
-                var director = await this.directorService.GetAllDirectorDetails(id);
+                var director = await directorService.GetDirectorDetailsAsync(id);
                 if (director == null)
                 {
                     return NotFound();
                 }
 
-                return View(director);
+                return View(director); // Ensure this matches the expected ViewModel type
             }
             catch (ArgumentException ex)
             {
-                // Handle invalid GUID error
                 return BadRequest(ex.Message);
             }
         }
 
+        /// <summary>
+        /// Displays form to edit an existing director.
+        /// </summary>
+        [HttpGet]
+        public async Task<IActionResult> Edit(string id)
+        {
+            var director = await directorService.GetEditModelAsync(id);
+            if (director == null)
+            {
+                return NotFound();
+            }
 
+            return View(director);
+        }
+
+        /// <summary>
+        /// Handles form submission for editing a director.
+        /// </summary>
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditDirectorViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            bool updated = await directorService.EditDirectorAsync(model);
+            if (!updated)
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction(nameof(AllDirectors));
+        }
+
+        /// <summary>
+        /// Displays delete confirmation for a director.
+        /// </summary>
+        [HttpGet]
+        public async Task<IActionResult> Delete(string id)
+        {
+            var director = await directorService.GetDirectorDetailsAsync(id);
+            if (director == null)
+            {
+                return NotFound();
+            }
+
+            var deleteModel = new DeleteDirectorViewModel
+            {
+                Id = director.Id,
+                FirstName = director.FirstName,
+                Surname = director.Surname
+            };
+
+            return View(deleteModel);
+        }
+
+        /// <summary>
+        /// Handles delete confirmation.
+        /// </summary>
+        [HttpPost]
+        public async Task<IActionResult> Delete(DeleteDirectorViewModel model)
+        {
+            bool isDeleted = await directorService.DeleteDirectorAsync(model.Id);
+            if (!isDeleted)
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction(nameof(AllDirectors));
+        }
     }
 }

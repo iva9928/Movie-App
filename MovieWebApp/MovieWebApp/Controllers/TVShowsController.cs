@@ -1,89 +1,194 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using MovieApp.DataModels;
+﻿using Microsoft.AspNetCore.Mvc;
 using MovieWebApp.Services.Data.Interfaces;
+using MovieWebApp.Web.ViewModels.TVShows;
+using MovieApp.DataModels;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MovieWebApp.Controllers
 {
     public class TVShowsController : Controller
     {
         private readonly ITVShowsService tvShowsService;
+        private const int DefaultPageSize = 3;
 
         public TVShowsController(ITVShowsService tvShowsService)
         {
             this.tvShowsService = tvShowsService;
         }
 
-        // Get all TV shows
         [HttpGet]
-        public async Task<IActionResult> AllTVShows()
+        public async Task<IActionResult> AllTVShows(
+            string searchQuery = "",
+            string genreFilter = "",
+            string countryFilter = "",
+            int page = 1,
+            int pageSize = DefaultPageSize)
         {
-            var allTVShows = await this.tvShowsService.GetAllTVShowsAsync();
-            return View(allTVShows);
+            var allTVShows = await tvShowsService.GetFilteredTVShowsAsync(searchQuery, genreFilter, countryFilter);
+            int totalTVShows = allTVShows.Count();
+            int totalPages = (int)Math.Ceiling(totalTVShows / (double)pageSize);
+
+            var pagedTVShows = allTVShows
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .Select(s => new TVShowAllViewModel
+                {
+                    Id = s.Id.ToString(),
+                    Title = s.Title,
+                    Genre = s.Genre,
+                    Duration = s.Duration,
+                    TVSeriesImageUrl = s.TVSeriesImageUrl
+                })
+                .ToList();
+
+            var viewModel = new PaginatedTVShowsViewModel
+            {
+                TVShows = pagedTVShows,
+                CurrentPage = page,
+                TotalPages = totalPages,
+                PageSize = pageSize
+            };
+
+            ViewBag.SearchFilter = new SearchFilterTVShowViewModel
+            {
+                SearchQuery = searchQuery,
+                GenreFilter = genreFilter,
+                CountryFilter = countryFilter
+            };
+
+            return View(viewModel);
         }
 
-        // Get TV show details
         [HttpGet]
         public async Task<IActionResult> Details(string id)
         {
-            try
+            var tvShow = await tvShowsService.GetTVShowDetailsAsync(id);
+            if (tvShow == null)
             {
-                var tvShow = await this.tvShowsService.GetTVShowDetailsAsync(id);
-                if (tvShow == null)
-                {
-                    return NotFound();
-                }
+                return NotFound();
+            }
 
-                return View(tvShow);
-            }
-            catch (ArgumentException ex)
+            var viewModel = new TVShowDetailsViewModel
             {
-                return BadRequest(ex.Message);
-            }
+                Id = tvShow.Id.ToString(),
+                Title = tvShow.Title,
+                Genre = tvShow.Genre,
+                Duration = tvShow.Duration,
+                TVSeriesImageUrl = tvShow.TVSeriesImageUrl,
+                ReleaseDate = tvShow.ReleaseDate,
+                Casts = tvShow.Casts,
+                Country = tvShow.Country,
+                Production = tvShow.Production,
+                Description = tvShow.Description
+            };
+
+            return View(viewModel);
         }
 
-        // Add TV show (GET)
         [HttpGet]
-        [Authorize(Roles = "Admin")]
         public IActionResult AddTVShow()
         {
-            return View();
+            return View(new AddTVShowViewModel());
         }
 
-        // Add TV show (POST)
         [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> AddTVShow(TVShows tvShow)
+        public async Task<IActionResult> AddTVShow(AddTVShowViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return View(tvShow);
+                return View(model);
             }
 
-            await this.tvShowsService.AddTVShowAsync(tvShow);
+            var tvShowData = new TVShows
+            {
+                Id = Guid.NewGuid(),
+                Title = model.Title,
+                Genre = model.Genre,
+                ReleaseDate = model.ReleaseDate,
+                Casts = model.Casts,
+                Duration = model.Duration,
+                Country = model.Country,
+                Production = model.Production,
+                TVSeriesImageUrl = model.TVSeriesImageUrl,
+                Description = model.Description
+            };
+
+            await tvShowsService.AddTVShowAsync(tvShowData);
             return RedirectToAction(nameof(AllTVShows));
         }
 
-        // Delete TV show
-        [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteTVShow(string id)
+        [HttpGet]
+        public async Task<IActionResult> Edit(string id)
         {
-            try
+            if (string.IsNullOrEmpty(id) || !Guid.TryParse(id, out _))
             {
-                bool isDeleted = await this.tvShowsService.DeleteTVShowAsync(id);
-
-                if (!isDeleted)
-                {
-                    return NotFound();
-                }
-
-                return RedirectToAction(nameof(AllTVShows));
+                return BadRequest("Invalid TV Show ID.");
             }
-            catch (ArgumentException ex)
+
+            var tvShow = await tvShowsService.GetEditModelAsync(id);
+            if (tvShow == null)
             {
-                return BadRequest(ex.Message);
+                return NotFound();
             }
+
+            var viewModel = new EditTVShowViewModel
+            {
+                Id = tvShow.Id.ToString(),
+                Title = tvShow.Title,
+                Genre = tvShow.Genre,
+                ReleaseDate = tvShow.ReleaseDate,
+                Casts = tvShow.Casts,
+                Duration = tvShow.Duration,
+                Country = tvShow.Country,
+                Production = tvShow.Production,
+                TVSeriesImageUrl = tvShow.TVSeriesImageUrl,
+                Description = tvShow.Description
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditTVShowViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            bool updated = await tvShowsService.EditTVShowAsync(model);
+            if (!updated)
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction(nameof(AllTVShows));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(string id)
+        {
+            var tvShow = await tvShowsService.GetTVShowDetailsAsync(id);
+            if (tvShow == null)
+            {
+                return NotFound();
+            }
+
+            return View(new DeleteTVShowViewModel { Id = tvShow.Id.ToString(), Title = tvShow.Title });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(DeleteTVShowViewModel model)
+        {
+            bool isDeleted = await tvShowsService.DeleteTVShowAsync(model.Id);
+            if (!isDeleted)
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction(nameof(AllTVShows));
         }
     }
 }

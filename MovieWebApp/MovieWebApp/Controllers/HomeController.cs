@@ -19,11 +19,11 @@ namespace MovieWebApp.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Movie> allMovies = this.dbContext
-                .Movies
-                .ToList();
+            //IEnumerable<Movie> allMovies = this.dbContext
+            //    .Movies
+            //    .ToList();
 
-            return View(allMovies);
+            return View(/*allMovies*/);
         }
 
         public IActionResult Privacy()
@@ -31,10 +31,40 @@ namespace MovieWebApp.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        //public IActionResult Error()
+        //{
+        //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        //}
+        //public IActionResult Error(int? statusCode)
+        //{
+        //    if (!statusCode.HasValue)
+        //    {
+        //        return this.View("Error");
+        //    }
+
+        //    if (statusCode == 404)
+        //    {
+        //        return this.View("Error404");
+        //    }
+        //    else if (statusCode == 500)
+        //    {
+        //        return this.View("Error500");
+        //    }
+
+        //    return View();  
+        //}
+
+        public IActionResult Error404(int? statusCode)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View();
+        }
+
+        public IActionResult ViewError(int? statusCode = null)
+        {
+            
+            return this.View("Error500");
+            
         }
     }
 }
