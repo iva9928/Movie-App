@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MovieApp.DataModels\MovieApp.DataModels.csproj" />
     <ProjectReference Include="..\MovieApp.Data\MovieApp.Data.csproj" />
+    <ProjectReference Include="..\MovieWebApp.Web.ViewModels\MovieWebApp.Web.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

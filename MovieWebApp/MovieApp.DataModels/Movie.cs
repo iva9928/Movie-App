@@ -15,7 +15,7 @@ namespace MovieApp.DataModels
         //тогава филма трябва ли да има жанр?
         public string Genre { get; set; } = null!;
         public DateTime ReleaseDate { get; set; }
-        public string Casts { get; set; } = null!;
+        public string? Casts { get; set; }
         //minutes
         public int Duration { get; set; }
         public string Country { get; set; } = null!;

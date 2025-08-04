@@ -27,10 +27,18 @@
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(
+            if (!IsRunningInTest())
+            {
+                optionsBuilder.UseSqlServer(
                 "Server=DESKTOP-QQ34EL6\\SQLEXPRESS;Database=MovieApp2024;Trusted_Connection=True;TrustServerCertificate=True;",
                 b => b.MigrationsAssembly("MovieApp.Data"));
+            }
         }
+        private bool IsRunningInTest()
+        {
+            return AppDomain.CurrentDomain.FriendlyName.Contains("testhost", StringComparison.OrdinalIgnoreCase);
+        }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Actor>()
@@ -47,12 +55,15 @@
 
             base.OnModelCreating(builder);
 
-            //builder.ApplyConfiguration(new TVShowsConfiguration());
-            Assembly assembly = Assembly.GetAssembly(typeof(MovieAppDbContext)) ?? Assembly.GetExecutingAssembly();
+            if (!IsRunningInTest())
+            {
+                //builder.ApplyConfiguration(new TVShowsConfiguration());
+                Assembly assembly = Assembly.GetAssembly(typeof(MovieAppDbContext)) ?? Assembly.GetExecutingAssembly();
 
-            builder.ApplyConfigurationsFromAssembly(assembly);
+                builder.ApplyConfigurationsFromAssembly(assembly);
 
-            base.OnModelCreating(builder);
+                base.OnModelCreating(builder);
+            }
         }
     }
 }

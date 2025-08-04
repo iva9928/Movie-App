@@ -15,7 +15,7 @@ namespace MovieWebApp
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container
-            var connectionString = builder.Configuration.GetConnectionString("SQLServer")
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
                 ?? throw new InvalidOperationException("Connection string 'SQLServer' not found.");
 
             builder.Services.AddDbContext<MovieAppDbContext>(options =>
@@ -66,6 +66,15 @@ namespace MovieWebApp
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts(); // Enable HSTS for production
             }
+            app.MapControllerRoute(
+                name: "Areas",
+                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+            app.MapControllerRoute(
+                name: "Errors",
+                pattern: "{controller=Home}/{action=Index}/{statusCode?}");
+            app.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -73,6 +82,8 @@ namespace MovieWebApp
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseStatusCodePagesWithRedirects("Home/Error/{0}");
 
             // Define routing
             app.MapControllerRoute(
